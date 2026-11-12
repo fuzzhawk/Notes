@@ -2,9 +2,10 @@ name: Build Android APK
 
 on:
   push:
-    # Notes synced from the app land in notes/ — those commits need no new APK.
+    # Notes and recordings synced from the app land in notes/ and audio/ — those commits need no new APK.
     paths-ignore:
       - 'notes/**'
+      - 'audio/**'
       - '**.md'
   workflow_dispatch:
 

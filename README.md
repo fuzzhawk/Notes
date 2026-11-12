@@ -28,8 +28,13 @@ Everything lives in the **☰ menu**:
   (bold, italic, strikethrough, headings, lists, checklists, quotes). The eye button in a note shows it
   formatted, and checklist boxes can be ticked there.
 - **Audio player** — turn it on in the menu to get a one-line player at the top: play/pause,
-  track picker (add audio files from the phone here), seek bar, and loop. Audio files are stored only on
-  the phone; they aren't uploaded to GitHub.
+  track picker (add audio files from the phone here), seek bar, record and loop. Audio files you add
+  are stored only on the phone; only recordings are uploaded to GitHub.
+- **Record audio** — records from the mic; the ● button in the player does the same. With a note open,
+  the recording is saved as a take of that note and listed under its title (tap a take to play it).
+  The current track keeps playing while you record, so you can record over a beat; use headphones so the
+  mic only picks up your voice. Recordings are about 1 MB per minute and **sync to the `audio/` folder**
+  (one audio file plus a small `.json` with its name and note). Keep the screen on while recording.
 - **Sync settings** — connect this repository (see below).
 - With a note open, the menu also has **Pin** and **Delete**.
 

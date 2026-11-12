@@ -249,6 +249,7 @@ function fillEditor(note) {
   titleEl.value = note.title;
   bodyEl.value = note.body;
   renderNoteTags(note);
+  renderTakes();
   $('#edited').textContent = 'Edited ' + formatDate(note.updated);
   if (!$('#preview').hidden) renderPreview();
 }
@@ -293,6 +294,7 @@ function closeEditor() {
   const note = byId(currentId);
   if (note && !note.deleted && !note.title.trim() && !note.body.trim() && !note.tags.length) removeNote(note);
   currentId = null;
+  renderTakes();
   $('#editor').hidden = true;
   bodyEl.blur();
   titleEl.blur();
@@ -563,6 +565,7 @@ function openDrawer() {
   $('#menu-note').hidden = !inEditor;
   if (inEditor && note) $('[data-menu="pin"]').textContent = note.pinned ? 'Unpin note' : 'Pin note';
   $('#player-switch').classList.toggle('on', prefs.player);
+  $('[data-menu="record"]').textContent = rec ? 'Stop recording' : inEditor ? 'Record a take' : 'Record audio';
   $('#scrim').hidden = false;
   $('#drawer').hidden = false;
   pushLayer('drawer', () => {
@@ -594,6 +597,11 @@ const MENU = {
       replaceTop('format', closePage);
       showPage('format', true);
     } else unwind(null, () => openPage('format'));
+  },
+  record: () => {
+    if (!prefs.player) setPlayer(true);
+    popLayer();
+    toggleRecording();
   },
   player: () => {
     setPlayer(!prefs.player);
@@ -1002,11 +1010,17 @@ $('#pg-format').addEventListener('click', (e) => {
 });
 
 /* ================================================================== *
- * Audio player — files are kept on this device in IndexedDB
+ * Audio player + recorder
+ * Audio lives on this device in IndexedDB. Recordings also sync to the
+ * repository's audio/ folder; files added from the phone do not.
  * ================================================================== */
 const audio = new Audio();
 audio.preload = 'metadata';
-let tracks = []; // { id, name, type, added, blob }
+/**
+ * Track: { id, name, type, added, blob, duration (s) }
+ * Recordings also have: recording: true, noteId, ext, sha, metaSha, dirty, deleted
+ */
+let tracks = [];
 let trackUrl = null;
 let seeking = false;
 
@@ -1028,7 +1042,12 @@ async function idbDo(mode, fn) {
     tx.onabort = () => reject(tx.error);
   });
 }
+const saveTrack = (t) => idbDo('readwrite', (s) => s.put(t));
+const dropTrack = (t) => idbDo('readwrite', (s) => s.delete(t.id));
+const liveTracks = () => tracks.filter((t) => !t.deleted);
+const noteTakes = (noteId) => liveTracks().filter((t) => t.recording && t.noteId === noteId);
 
+let tracksReady = Promise.resolve();
 async function loadTracks() {
   try {
     tracks = (await idbDo('readonly', (s) => s.getAll())) || [];
@@ -1036,8 +1055,10 @@ async function loadTracks() {
     tracks = [];
   }
   tracks.sort((a, b) => a.added - b.added);
-  if (!tracks.some((t) => t.id === prefs.track)) prefs.track = tracks.length ? tracks[0].id : null;
+  const live = liveTracks();
+  if (!live.some((t) => t.id === prefs.track)) prefs.track = live.length ? live[0].id : null;
   selectTrack(prefs.track, false);
+  renderTakes();
 }
 
 const fmtTime = (t) => {
@@ -1046,8 +1067,17 @@ const fmtTime = (t) => {
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
 };
 
+const currentTrack = () => tracks.find((t) => t.id === prefs.track && !t.deleted);
+// Recorded WebM files carry no duration, so fall back to the one we measured.
+function trackDuration() {
+  const d = audio.duration;
+  if (Number.isFinite(d) && d > 0) return d;
+  const t = currentTrack();
+  return t && t.duration ? t.duration : NaN;
+}
+
 function selectTrack(id, play) {
-  const t = tracks.find((x) => x.id === id);
+  const t = tracks.find((x) => x.id === id && !x.deleted);
   audio.pause();
   if (trackUrl) URL.revokeObjectURL(trackUrl);
   trackUrl = null;
@@ -1065,28 +1095,56 @@ function selectTrack(id, play) {
   if ('mediaSession' in navigator && t) navigator.mediaSession.metadata = new MediaMetadata({ title: t.name, artist: 'Notes' });
   updateTime();
   renderTracks();
+  renderTakes();
 }
 
 function updateTime() {
-  const d = audio.duration;
+  if (rec) return; // the time slot shows the recording timer
+  const d = trackDuration();
   $('#pl-time').textContent = Number.isFinite(d) ? `${fmtTime(audio.currentTime)}/${fmtTime(d)}` : fmtTime(audio.currentTime);
   if (!seeking) $('#pl-seek').value = Number.isFinite(d) && d > 0 ? Math.round((audio.currentTime / d) * 1000) : 0;
 }
 
+const X_ICON = '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+
 function renderTracks() {
-  $('#track-list').innerHTML = tracks
+  $('#track-list').innerHTML = liveTracks()
     .map(
-      (t) => `<li class="${t.id === prefs.track ? 'current' : ''}"><button type="button" class="t-name" data-id="${esc(t.id)}">${esc(t.name)}</button>
-      <button type="button" class="ib sm" data-del="${esc(t.id)}" aria-label="Remove ${esc(t.name)}"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></li>`
+      (t) => `<li class="${t.id === prefs.track ? 'current' : ''}"><button type="button" class="t-name" data-id="${esc(t.id)}">${
+        t.recording ? '<span class="rec-dot" aria-label="Recording"></span>' : ''
+      }${esc(t.name)}</button>
+      <button type="button" class="ib sm" data-del="${esc(t.id)}" aria-label="Remove ${esc(t.name)}">${X_ICON}</button></li>`
     )
     .join('');
 }
+
+/** The open note's recordings, listed under its tags. */
+function renderTakes() {
+  const box = $('#takes');
+  const takes = currentId === null ? [] : noteTakes(currentId);
+  box.hidden = !takes.length;
+  box.innerHTML = takes
+    .map(
+      (t) => `<button type="button" class="take${t.id === prefs.track ? ' current' : ''}" data-id="${esc(t.id)}">
+        <span class="rec-dot"></span><span class="take-name">${esc(t.name)}</span><span class="take-len">${fmtTime(t.duration)}</span></button>`
+    )
+    .join('');
+}
+$('#takes').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-id]');
+  if (!b) return;
+  if (!prefs.player) setPlayer(true);
+  if (prefs.track === b.dataset.id && !audio.paused) audio.pause();
+  else if (prefs.track === b.dataset.id) audio.play().catch(() => {});
+  else selectTrack(b.dataset.id, true);
+});
 
 function setPlayer(on) {
   prefs.player = on;
   savePrefs();
   $('#player').hidden = !on;
   if (!on) {
+    if (rec) stopRecording();
     audio.pause();
     if (hasLayer('tracks')) popLayer();
   }
@@ -1104,7 +1162,7 @@ $('#pl-play').addEventListener('click', () => {
   if (audio.paused) audio.play().catch(() => toast('Could not play this file'));
   else audio.pause();
 });
-$('#pl-track').addEventListener('click', () => (tracks.length ? openTracks() : $('#track-file').click()));
+$('#pl-track').addEventListener('click', () => (liveTracks().length ? openTracks() : $('#track-file').click()));
 $('#pl-loop').addEventListener('click', () => {
   prefs.loop = !prefs.loop;
   audio.loop = prefs.loop;
@@ -1114,17 +1172,20 @@ $('#pl-loop').addEventListener('click', () => {
 });
 $('#pl-seek').addEventListener('input', () => {
   seeking = true;
-  const d = audio.duration;
-  if (Number.isFinite(d)) $('#pl-time').textContent = `${fmtTime(($('#pl-seek').value / 1000) * d)}/${fmtTime(d)}`;
+  const d = trackDuration();
+  if (Number.isFinite(d) && !rec) $('#pl-time').textContent = `${fmtTime(($('#pl-seek').value / 1000) * d)}/${fmtTime(d)}`;
 });
 $('#pl-seek').addEventListener('change', () => {
-  const d = audio.duration;
+  const d = trackDuration();
   if (Number.isFinite(d)) audio.currentTime = ($('#pl-seek').value / 1000) * d;
   seeking = false;
 });
 audio.addEventListener('timeupdate', updateTime);
 audio.addEventListener('loadedmetadata', updateTime);
-audio.addEventListener('play', () => $('#player').classList.add('playing'));
+audio.addEventListener('play', () => {
+  $('#player').classList.add('playing');
+  renderTakes();
+});
 audio.addEventListener('pause', () => $('#player').classList.remove('playing'));
 audio.addEventListener('ended', () => {
   audio.currentTime = 0;
@@ -1138,6 +1199,20 @@ if ('mediaSession' in navigator) {
   navigator.mediaSession.setActionHandler('pause', () => audio.pause());
 }
 
+async function removeTrack(t) {
+  if (t.recording && t.sha) {
+    // Keep a tombstone until the deletion reaches GitHub.
+    t.deleted = true;
+    t.dirty = true;
+    t.blob = new Blob([]);
+    await saveTrack(t).catch(() => {});
+    scheduleSync(1500);
+  } else {
+    await dropTrack(t).catch(() => {});
+    tracks = tracks.filter((x) => x !== t);
+  }
+}
+
 $('#track-list').addEventListener('click', async (e) => {
   const pick = e.target.closest('[data-id]');
   const del = e.target.closest('[data-del]');
@@ -1146,12 +1221,20 @@ $('#track-list').addEventListener('click', async (e) => {
     popLayer();
   } else if (del) {
     const t = tracks.find((x) => x.id === del.dataset.del);
-    if (!t || !confirm(`Remove “${t.name}” from the player?`)) return;
-    await idbDo('readwrite', (s) => s.delete(t.id)).catch(() => {});
-    tracks = tracks.filter((x) => x !== t);
-    if (prefs.track === t.id) selectTrack(tracks.length ? tracks[0].id : null, false);
-    else renderTracks();
-    if (!tracks.length) popLayer();
+    if (!t) return;
+    const msg = t.recording
+      ? `Delete the recording “${t.name}”? It is also removed from GitHub.`
+      : `Remove “${t.name}” from the player?`;
+    if (!confirm(msg)) return;
+    const wasCurrent = prefs.track === t.id;
+    await removeTrack(t);
+    const live = liveTracks();
+    if (wasCurrent) selectTrack(live.length ? live[0].id : null, false);
+    else {
+      renderTracks();
+      renderTakes();
+    }
+    if (!live.length) popLayer();
   }
 });
 $('#track-add').addEventListener('click', () => $('#track-file').click());
@@ -1163,7 +1246,7 @@ $('#track-file').addEventListener('change', async (e) => {
     try {
       const blob = new Blob([await f.arrayBuffer()], { type: f.type || 'audio/mpeg' });
       const t = { id: newId(), name: f.name.replace(/\.[^.]+$/, ''), type: blob.type, added: Date.now(), blob };
-      await idbDo('readwrite', (s) => s.put(t));
+      await saveTrack(t);
       tracks.push(t);
       last = t;
     } catch {
@@ -1175,6 +1258,98 @@ $('#track-file').addEventListener('change', async (e) => {
     toast(files.length > 1 ? `Added ${files.length} files` : `Added “${last.name}”`);
   }
 });
+
+/* ---------- Recorder ---------- */
+// ~1 MB per minute. The current track keeps playing; only the mic is recorded.
+const REC_BITRATE = 128000;
+const REC_TYPES = [
+  ['audio/webm;codecs=opus', 'webm'],
+  ['audio/ogg;codecs=opus', 'ogg'],
+  ['audio/mp4', 'm4a'],
+  ['audio/webm', 'webm'],
+];
+let rec = null; // { mr, stream, chunks, started, noteId, type, ext, timer, wake }
+
+async function startRecording() {
+  if (rec) return;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
+    return toast('Recording is not supported here');
+  }
+  let stream;
+  try {
+    // No voice processing: it would squash singing and duck the beat.
+    stream = await navigator.mediaDevices.getUserMedia({
+      audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false },
+    });
+  } catch {
+    return toast('Microphone access was denied');
+  }
+  const [type, ext] = REC_TYPES.find(([t]) => MediaRecorder.isTypeSupported(t)) || ['', 'webm'];
+  let mr;
+  try {
+    mr = new MediaRecorder(stream, type ? { mimeType: type, audioBitsPerSecond: REC_BITRATE } : { audioBitsPerSecond: REC_BITRATE });
+  } catch {
+    stream.getTracks().forEach((t) => t.stop());
+    return toast('Could not start recording');
+  }
+  rec = { mr, stream, chunks: [], started: Date.now(), noteId: currentId, type: (mr.mimeType || type || 'audio/webm').split(';')[0], ext };
+  mr.addEventListener('dataavailable', (e) => e.data && e.data.size && rec && rec.chunks.push(e.data));
+  mr.addEventListener('stop', finishRecording);
+  mr.start(1000);
+  try {
+    rec.wake = await navigator.wakeLock.request('screen'); // the mic stops if the screen turns off
+  } catch {}
+  $('#player').classList.add('recording');
+  $('#pl-rec').setAttribute('aria-label', 'Stop recording');
+  $('#pl-time').textContent = '0:00';
+  rec.timer = setInterval(() => ($('#pl-time').textContent = fmtTime((Date.now() - rec.started) / 1000)), 250);
+  toast(rec.noteId ? 'Recording a take for this note' : 'Recording');
+}
+
+function stopRecording() {
+  if (rec && rec.mr.state !== 'inactive') rec.mr.stop();
+}
+
+async function finishRecording() {
+  const r = rec;
+  rec = null;
+  clearInterval(r.timer);
+  r.stream.getTracks().forEach((t) => t.stop());
+  if (r.wake) r.wake.release().catch(() => {});
+  $('#player').classList.remove('recording');
+  $('#pl-rec').setAttribute('aria-label', 'Record');
+  updateTime();
+
+  const duration = (Date.now() - r.started) / 1000;
+  const blob = new Blob(r.chunks, { type: r.type });
+  if (duration < 1 || !blob.size) return toast('Recording too short — not saved');
+  const note = r.noteId && byId(r.noteId);
+  const stamp = new Date(r.started);
+  const name = note
+    ? `${note.title.trim() || 'Untitled'} — take ${noteTakes(note.id).length + 1}`
+    : `Recording ${stamp.toLocaleDateString([], { month: 'short', day: 'numeric' })} ${stamp.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
+  const t = {
+    id: newId(), name, type: r.type, ext: r.ext, added: r.started, duration, blob,
+    recording: true, noteId: note ? note.id : null, sha: null, metaSha: null, dirty: true, deleted: false,
+  };
+  try {
+    await saveTrack(t);
+  } catch {
+    return toast('Could not save the recording (storage full?)');
+  }
+  tracks.push(t);
+  if (!prefs.track) selectTrack(t.id, false);
+  renderTracks();
+  renderTakes();
+  toast(`Saved “${name}”`);
+  scheduleSync(1500);
+}
+
+function toggleRecording() {
+  if (rec) stopRecording();
+  else startRecording();
+}
+$('#pl-rec').addEventListener('click', toggleRecording);
 
 /* ================================================================== *
  * Note <-> Markdown file
@@ -1357,6 +1532,121 @@ async function runSync() {
     }
     persist();
   }
+
+  await syncAudio();
+}
+
+/* ---------- Recordings <-> audio/ folder ---------- */
+const AUDIO_DIR = 'audio';
+const MAX_SYNC_BYTES = 40 * 1024 * 1024; // GitHub's file API tops out a little above this
+
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(',')[1] || '');
+    r.onerror = () => reject(r.error);
+    r.readAsDataURL(blob);
+  });
+}
+
+async function listRemoteAudio() {
+  const res = await gh('GET', `/contents/${AUDIO_DIR}${refQuery()}`);
+  if (res.status === 404) return new Map();
+  if (!res.ok) throw new SyncError(`GitHub error ${res.status}`);
+  const map = new Map(); // id -> { file, sha, metaSha }
+  for (const it of await res.json()) {
+    const m = it.type === 'file' && /^([a-z0-9]+)\.([a-z0-9]+)$/.exec(it.name);
+    if (!m) continue;
+    const e = map.get(m[1]) || {};
+    if (m[2] === 'json') e.metaSha = it.sha;
+    else Object.assign(e, { file: it.name, sha: it.sha });
+    map.set(m[1], e);
+  }
+  return map;
+}
+
+const audioPath = (name) => `/contents/${AUDIO_DIR}/${encodeURIComponent(name)}`;
+
+async function putAudioFile(name, content, message, sha) {
+  const body = { message, content, branch: cfg.branch };
+  if (sha) body.sha = sha;
+  const res = await gh('PUT', audioPath(name), { body });
+  if (!res.ok) throw new SyncError(`Could not upload a recording (${res.status})`);
+  return (await res.json()).content.sha;
+}
+
+async function deleteAudioFile(name, sha, message) {
+  const res = await gh('DELETE', audioPath(name), { body: { message, sha, branch: cfg.branch } });
+  if (!res.ok && res.status !== 404) throw new SyncError(`Could not delete a recording (${res.status})`);
+}
+
+const recordingMeta = (t) =>
+  JSON.stringify(
+    { name: t.name, note: t.noteId || null, added: new Date(t.added).toISOString(), duration: Math.round(t.duration * 10) / 10, type: t.type },
+    null,
+    2
+  ) + '\n';
+
+async function syncAudio() {
+  await tracksReady;
+  const remote = await listRemoteAudio();
+  let changed = false;
+
+  // 1. Download recordings made on other devices.
+  for (const [id, r] of remote) {
+    if (!r.file || !r.metaSha || tracks.some((t) => t.id === id)) continue;
+    const metaRes = await gh('GET', audioPath(id + '.json') + refQuery(), { raw: true });
+    const fileRes = metaRes.ok && (await gh('GET', audioPath(r.file) + refQuery(), { raw: true }));
+    if (!metaRes.ok || !fileRes.ok) throw new SyncError('Could not download a recording');
+    let meta = {};
+    try {
+      meta = JSON.parse(await metaRes.text());
+    } catch {}
+    const type = String(meta.type || 'audio/webm');
+    const blob = new Blob([await fileRes.arrayBuffer()], { type });
+    const t = {
+      id, name: String(meta.name || 'Recording'), type, ext: r.file.split('.').pop(),
+      added: Date.parse(meta.added) || Date.now(), duration: Number(meta.duration) || 0, blob,
+      recording: true, noteId: meta.note || null, sha: r.sha, metaSha: r.metaSha, dirty: false, deleted: false,
+    };
+    await saveTrack(t);
+    tracks.push(t);
+    changed = true;
+  }
+
+  // 2. Upload new recordings, send deletions, drop ones deleted elsewhere.
+  for (const t of tracks.filter((x) => x.recording)) {
+    const r = remote.get(t.id);
+    const file = `${t.id}.${t.ext || 'webm'}`;
+    if (t.deleted) {
+      if (r && r.sha) await deleteAudioFile(r.file, r.sha, `Delete recording: ${t.name}`);
+      if (r && r.metaSha) await deleteAudioFile(t.id + '.json', r.metaSha, `Delete recording: ${t.name}`);
+      await dropTrack(t);
+      tracks = tracks.filter((x) => x !== t);
+      changed = true;
+    } else if (t.sha && !r && !t.dirty) {
+      await dropTrack(t); // deleted on another device
+      tracks = tracks.filter((x) => x !== t);
+      changed = true;
+    } else if (t.dirty) {
+      if (t.blob.size > MAX_SYNC_BYTES) {
+        if (!t.tooBig) toast(`“${t.name}” is too long to sync (over 40 MB)`);
+        t.tooBig = true;
+        continue;
+      }
+      if (!t.sha) t.sha = await putAudioFile(file, await blobToBase64(t.blob), `Add recording: ${t.name}`);
+      if (!t.metaSha) t.metaSha = await putAudioFile(t.id + '.json', b64(recordingMeta(t)), `Add recording info: ${t.name}`);
+      t.dirty = false;
+      await saveTrack(t);
+    }
+  }
+
+  if (changed) {
+    const live = liveTracks();
+    if (!live.some((t) => t.id === prefs.track)) selectTrack(live.length ? live[0].id : null, false);
+    renderTracks();
+    renderTakes();
+  }
 }
 
 let syncing = false;
@@ -1423,7 +1713,7 @@ function updateStatus() {
     el.textContent = lastError;
     el.classList.add('error');
   } else {
-    const pending = notes.filter((n) => n.dirty).length;
+    const pending = notes.filter((n) => n.dirty).length + tracks.filter((t) => t.recording && t.dirty && !t.tooBig).length;
     const last = Number(localStorage.getItem(LS_LAST));
     el.textContent = pending
       ? `${pending} change${pending === 1 ? '' : 's'} to sync`
@@ -1517,7 +1807,7 @@ applyFormat();
 audio.loop = prefs.loop;
 $('#pl-loop').setAttribute('aria-pressed', String(prefs.loop));
 $('#player').hidden = !prefs.player;
-loadTracks();
+tracksReady = loadTracks();
 render();
 updateStatus();
 scheduleSync(300);

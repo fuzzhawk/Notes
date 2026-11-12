@@ -1,13 +1,16 @@
 package io.github.fuzzhawk.notes;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.webkit.PermissionRequest;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -42,6 +45,15 @@ public class MainActivity extends ComponentActivity {
 
     private WebView web;
     private ValueCallback<Uri[]> fileCallback;
+    private PermissionRequest pendingMicRequest;
+
+    private final ActivityResultLauncher<String> micPermission = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(), granted -> {
+                if (pendingMicRequest == null) return;
+                if (granted) grantMic(pendingMicRequest);
+                else pendingMicRequest.deny();
+                pendingMicRequest = null;
+            });
 
     private final ActivityResultLauncher<Intent> filePicker = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), this::onFilesPicked);
@@ -102,6 +114,27 @@ public class MainActivity extends ComponentActivity {
         });
 
         web.setWebChromeClient(new WebChromeClient() {
+            // The recorder asks for the microphone; pass that on to Android.
+            @Override
+            public void onPermissionRequest(PermissionRequest request) {
+                runOnUiThread(() -> {
+                    boolean mic = false;
+                    for (String r : request.getResources()) {
+                        if (PermissionRequest.RESOURCE_AUDIO_CAPTURE.equals(r)) mic = true;
+                    }
+                    if (!mic || !HOST.equals(request.getOrigin().getHost())) {
+                        request.deny();
+                    } else if (checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        grantMic(request);
+                    } else {
+                        if (pendingMicRequest != null) pendingMicRequest.deny();
+                        pendingMicRequest = request;
+                        micPermission.launch(Manifest.permission.RECORD_AUDIO);
+                    }
+                });
+            }
+
             @Override
             public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> callback,
                                              FileChooserParams params) {
@@ -135,6 +168,10 @@ public class MainActivity extends ComponentActivity {
         if (savedInstanceState == null || web.restoreState(savedInstanceState) == null) {
             web.loadUrl(START_URL);
         }
+    }
+
+    private static void grantMic(PermissionRequest request) {
+        request.grant(new String[]{PermissionRequest.RESOURCE_AUDIO_CAPTURE});
     }
 
     private void onFilesPicked(ActivityResult result) {

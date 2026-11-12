@@ -22,6 +22,9 @@
   <button id="pl-track" class="pl-track" type="button" aria-label="Choose track">No audio</button>
   <input id="pl-seek" class="pl-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek">
   <span id="pl-time" class="pl-time">0:00</span>
+  <button id="pl-rec" class="ib" type="button" aria-label="Record">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>
+  </button>
   <button id="pl-loop" class="ib" type="button" aria-label="Loop" aria-pressed="false">
     <svg viewBox="0 0 24 24"><path d="M17 2l3 3-3 3M4 11V9a4 4 0 0 1 4-4h12M7 22l-3-3 3-3M20 13v2a4 4 0 0 1-4 4H4"/></svg>
   </button>
@@ -152,6 +155,7 @@
       <span id="note-tags"></span>
       <input id="tag-input" type="text" placeholder="+ tag" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" aria-label="Add tag">
     </div>
+    <div id="takes" class="takes" hidden></div>
     <textarea id="body" class="body-input" placeholder="Start writing…" aria-label="Note"></textarea>
     <div id="preview" class="preview body-text" hidden></div>
     <div id="fmt-bar" class="fmt-bar" role="toolbar" aria-label="Formatting">
@@ -184,6 +188,7 @@
     <button type="button" data-menu="format">Text format</button>
   </div>
   <div class="menu-group">
+    <button type="button" data-menu="record">Record audio</button>
     <button type="button" data-menu="player" class="toggle"><span>Audio player</span><span id="player-switch" class="switch" aria-hidden="true"></span></button>
     <button type="button" data-menu="sync">Sync settings</button>
   </div>
