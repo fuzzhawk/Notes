@@ -1,0 +1,8 @@
+---
+title: "At a party walking in through the back, a long haired…"
+tags: []
+updated: 2024-12-03T18:23:36.000Z
+pinned: false
+---
+
+At a party walking in through the back, a long haired bearded man is selling a long pipette of glittering liquid. There is a party in the next room and a sense of foreboding comes over me. The room is filled with young people. The glitting liquid is the drugs they will be taking tonight. I dance with a girl with black bangs, she is shy but we dance perfectly. After the dance she collapses on the floor in extacy. I go into the woods outside to pee. I see a weird shadow behind me and run back to the house. On the way I see a giant windows error dialog box floating a few feet above the ground. I pull it with me it is weightless but solid. Getting back to the house, which is now the old cabin at Frances, the party goers are all gone. Will is there. I grab some weapons a little pellet pistol and a knife. Outside there are turrets mounted on tall wind turbines. We hide around the side of the house. An image of a young woman with long straight brown hair appears in the sky, she calls me by a woman's name. I ask where she is and she says yesterday. She's walking by a mossy stream .| ask if she's on mushrooms she says yes and starts talking about a meteorite that has landed. Inside the meteor is a small fat devil with an election, he quickly grows large and takes up residence in a cave up the hill. Will and I prepare to battle but before we can make our way into the cave a giant cartoon centipede with a stone brain for a head smashes into the devil crushing both their heads. The centipede walks out of the cave, minus its head, saying "we can't let them make weapons out of us"
