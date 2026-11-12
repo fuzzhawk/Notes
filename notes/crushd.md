@@ -15,5 +15,4 @@ As planet spins
 
 No it's not over
 
-
 Charm and strange shapes escape

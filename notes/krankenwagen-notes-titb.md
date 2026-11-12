@@ -9,6 +9,6 @@ pinned: false
 Burn the money - eat the rich
 Animation - slower intro text scrolling
 Record intro - Dan
-lightning 🌩️
+ lightning 🌩
 Explosion and gunfire for ending
 Get weapons

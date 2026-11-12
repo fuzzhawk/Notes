@@ -12,5 +12,4 @@ Baby what would you do
 
 The streets all look the same
 
-
 I forgot my self

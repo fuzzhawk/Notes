@@ -24,8 +24,7 @@ Feeling cold like a casket
 The opposing imagined
 In attachment elastic
 
------------------------
-
+‐----------------------
 
 Brain stained with the cold shame
 

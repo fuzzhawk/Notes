@@ -18,10 +18,7 @@ Ben
 Will
 Strings
 
-
 1 day demo with me on drums
-
-
 
 20 poems
 

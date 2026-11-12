@@ -5,7 +5,7 @@ updated: 2025-02-18T05:02:08.000Z
 pinned: false
 ---
 
-A strange moon hangs in the sky on garbage world. Zoom in on Garbageman
+A strange moon hangs in the sky on  garbage world.  Zoom in on Garbageman
 
 Garbage
 
@@ -33,7 +33,7 @@ NUCLEAR CIGARETTE
 
 Garbageman is travelling through garbage world
 
-My memory is blurry. I'm not sure how i got here.
+My memory is blurry.  I'm not sure how i got here.
 
 But there's no time to think
 
@@ -43,7 +43,8 @@ Something's watching me
 
 A mutant attacks garbageman and he defends himself
 
-This world is ruined. All of these toxic chemicals are byproducts of manufacturing processes
+This world is ruined.  All of these toxic chemicals are byproducts of manufacturing processes
+
 the waste
 
 Of another world
@@ -60,4 +61,4 @@ Flashback to garbage barge flying through space
 
 It was just another garbage delivery.
 
-We were hauling 73 kilotonnes of unprocessed household garbage from central processing. The
+We were hauling 73 kilotonnes of unprocessed household garbage from central processing.  The

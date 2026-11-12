@@ -15,7 +15,7 @@ Indicated by electrical activity inside your greater brain.
 Naked in the rain dancing
 Questions with no answers
 Balance of reality with the energy that shatters it
-Paddle upstream or drift down river physical
+Paddle upstream or drift down river  physical
 Animistic intelligent arrows in my quiver
 Let fly to the target
 The path of the adept long road to meet the master
@@ -26,6 +26,7 @@ Let the experiment commence
 Finger on the pulse of the planetary dance
 Let the thought form be born and condense
 Extended long after the fuel has been spent
+
 The lines of communication are bent
 Curved light of a mirage
 Simple methods fuel the vessel to project beyond the stars

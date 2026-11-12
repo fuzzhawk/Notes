@@ -8,8 +8,6 @@ pinned: false
 Knife in the sink
 Sink the knife in
 
-
-
 Terror and pain
 Unexpected injury
 Cut through your veins

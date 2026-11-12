@@ -13,7 +13,7 @@ It's like the whole world is an orgasm
 
 I felt like I could just reach out and touch it
 
-... seemed So real
+... seemed so real
 
 But it's funny ...
 
@@ -22,7 +22,6 @@ now I can barely remember what it looked like.
 I just remember those eyes
 
 Staring at me like two moons, tearing a hole in the sky
-
 
 I wish I could go back there but things are different now.
 

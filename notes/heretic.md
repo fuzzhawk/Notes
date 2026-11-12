@@ -13,7 +13,5 @@ My brain finds tributaries
 Hoping to tell the truth someday
 Execute the perfect confesion
 
-
-
 I fold and crush it
 Move my sedentary

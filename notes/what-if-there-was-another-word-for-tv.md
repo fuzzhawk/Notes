@@ -6,5 +6,5 @@ pinned: false
 ---
 
 What if there was another word for tv
-In a future where information flow is ever present. The act of spacing- disasociating as a screen beams light info into your brain - as differentiated from screen time in a focused state.
+In a future where information flow is ever present.  The act of spacing- disasociating as a screen beams light info into your brain - as differentiated from screen time in a focused state.
 When the device detects disassociative brain waves it must change in some way to guide the user into a more creative and grounded program

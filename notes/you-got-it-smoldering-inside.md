@@ -9,6 +9,7 @@ You got it smoldering inside
 you. ( you is the one - rest is lead up)
 
 You wanted to lose
+
 How can you feel
 
 When you're not you

@@ -1,11 +1,12 @@
 ---
-title: "how many times can you go the distance riddle me this…"
+title: "how many times can you go the distance"
 tags: []
 updated: 2022-11-04T07:44:44.000Z
 pinned: false
 ---
 
-how many times can you go the distance riddle me this message is it
+how many times can you go the distance
+riddle me this message is it
 a contest or mearly a blessing
 that just got mis directed
 who reeks havoc on the wreckless
@@ -26,11 +27,12 @@ Found it demanded a man attention
 Grounded inner findings founded
 Foundation not ta mention
 Demented hunting
-Can't eat if you don’t shoot something check for a moose
+Can’t eat if you don’t shoot something
+check for a moose
 In the marsh land
 Munching out
-view From me now
-Sight shoulder spot
+ view From me now
+Sight  shoulder spot
 breath out
 BAW
 Antlers drop down
@@ -42,7 +44,7 @@ state of a adrenaline
 whole new waves
 of mellowing
 keeping the brain busy
-forget it if you haven't done it you wont get it
+forget it if you haven’t done it you wont get it
 and if you don’t get it
 then don’t take the credit of it
 you can get the better of
@@ -52,5 +54,4 @@ so set on the scope
 make a goal and go hard
 die if you have to
 doing your part
-find salvation proving your heart………
-patience
+find salvation proving your heart………patience

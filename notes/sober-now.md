@@ -20,7 +20,7 @@ Fucking with the wishes to consume again
 
 No guarantee never thought I'd make (it)
 Channel my demons it's fate
-know you cant relate with
+ know you can't relate with
 
 All the love but I still save face with my hatred
 Not expecting a saviour

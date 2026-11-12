@@ -8,5 +8,4 @@ pinned: false
 I like these types of spots
 I like these types of robots
 
-
 Tricked by a twisted storyteller

@@ -9,7 +9,6 @@ She's got so many enemies
 
 She's a magnet for jealousy
 
-
 Drowned in memories
 
 Mental suit of armor

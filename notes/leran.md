@@ -11,7 +11,7 @@ All of your life a chimera
 Ever nearer
 To the face of the dearest
 
-Cant hold the sand it keeps spilling through
+Can't hold the sand it keeps spilling through
 Cant focus your mind grasp at the truth
 Nothing that you've been asked to do
 Living in the body of the dragon you slew
@@ -22,7 +22,6 @@ Clenched tight in fists
 But the mist is never there to catch
 Bubbling forth the thoughts careening off course
 These glyphs appear manifested by an unseen force
-
 
 My hands stained now with the bitter roots
 And the stair well down to the ghost induced
@@ -36,5 +35,4 @@ The shadow cast
 The last chapter never passed
 Suspended in space as we cross the crevasse
 
-
-Cant hold the sand it keeps spilling through
+Can't hold the sand it keeps spilling through

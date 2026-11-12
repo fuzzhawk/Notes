@@ -25,19 +25,14 @@ In my fantasies I'm mighty
 Under this canopy write nicely
 My sanity is dicey
 
-
 Wanted all my life
 
 Haunted over time
-
-
 
 Words formed from breath
 My chest to your head
 We press intentions together
 Against Deception of death
-
-
 
 Moves in the maze,
 Mood change
@@ -45,17 +40,12 @@ I lost my face i lost my change
 
 We get distracted by the colorful lights
 
-
 Loves a dying art
 I'm flying apart
 Going dark Trapped within the cities cold heart
 
 The mystified misfit
 used to be god
-
-
-
-
 
 A new Star in the sky rose
 As satellites proliferated
@@ -80,7 +70,6 @@ We battled but we let our hearts induce the movement
 
 Schemes to free the flock from persecution
 
-
 The goddess kept us guessing
 Estranged from normal human limits
 
@@ -92,6 +81,7 @@ hung up on web we wove
 
 Finding bliss an undivided zone
 Shelter from the cold
+
 You welcomed me into your home
 I bled the tears into your garden
 
@@ -101,8 +91,6 @@ But the work still hit it's target
 Universal language copy to untie all the tangles
 
 The lotus field to seal the mangled code banks and correct the angles
-
-
 
 We hovered above the culture
 Then we dove into the core
@@ -127,33 +115,14 @@ Perfection in the form gave way to precious compromise
 
 You walked through destiny alone in the blue lions eye
 
-
 Cryptic signals
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Production to cleanse pollution
 You gave me back a piece that I had lost
 
-
 We hovered long above the garden
 Unguarded thoughts before the crash
+
 Watching as the wave we crested
 Broke upon our cultured shores
 Fermenting in the dungeon countryside
@@ -187,12 +156,7 @@ Deeper down the thread
 The wordless truth
 Re position
 
-
 Deeper into change
-
-
-
-
 
 Heart hollow calling to the goddess estranged
 
@@ -206,7 +170,6 @@ Shelter from the cold
 You welcomed me into your home
 I grew the seed i bled the tears into your garden
 
-
 The frequencies others discarded
 A story with no ending seems appropriate for writers block
 We never finished what we started
@@ -219,18 +182,12 @@ Arrange a universal language to attract like minded magnets
 
 Sort the mangled mind find the solace in the tangles
 
-
-
-
-
 You escaped the cycle
 And I can't turn back the clock
-
 
 But you were grasping
 Catching flies trying to find a definition
 The peace a final breath
-
 
 Sober or not we never gave up on each other
 Somehow we knew
@@ -244,8 +201,6 @@ Often only seen by one another
 
 Deep in the lab
 no sleep is had
-
-
 
 Led us in a circle an immersion
 

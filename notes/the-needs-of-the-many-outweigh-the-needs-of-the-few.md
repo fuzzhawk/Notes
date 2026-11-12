@@ -7,7 +7,7 @@ pinned: false
 
 The needs of the many outweigh the needs of the few
 
-A vision has been sent to me I know what I must do
+A  vision has been sent to me I know what I must do
 
 The serum in an aerosol suspension hits the atmosphere
 

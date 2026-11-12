@@ -11,8 +11,6 @@ Garbageman in the place put a smile on your face
 
 Picking up your trash never leaving a trace
 
-
-
 just to give you a taste
 
 Coming in clutch with the cigarette butts

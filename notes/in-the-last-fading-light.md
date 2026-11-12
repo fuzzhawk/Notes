@@ -14,6 +14,4 @@ And cross pollination
 Decompiled into fluid
 Curled with a smile turned to slurry
 
-
-
 Decoupled from

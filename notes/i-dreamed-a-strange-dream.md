@@ -18,19 +18,19 @@ shapeshifters assume the form of a dichotomy
 To distract and disorient discordant portals they guard with a riddle
 Clowns and jokers and I'm caught in the middle
 
-Clotted blood drips from the strings of this detuned fiddle my sigil.
+Clotted blood drips from the strings of this  detuned fiddle my sigil.
 Projected immaculate
 shining but I can't capture it.
 
 Pure form animorphous orbit
 Hover above corpulent corpses
 Climbing to higher to view my purpose
+
 My energy surplus burned by digital glyphs
 Your body transmitted into my bloodstream a gift
 
 No lock but I cut a key
-Cotterize this rip in the fabric of my gene pool.
-Spliced more helixes 7 strands of profanity no panic in the step of a fool.
+Cotterize this rip in the fabric of my gene pool. Spliced more helixes 7 strands of profanity no panic in the step of a fool.
 
 Sure footed stepping over the edge
 With the grace of a defaced graffiti to a population spoonfed.

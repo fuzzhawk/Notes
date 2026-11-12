@@ -26,22 +26,26 @@ but in moments
 eclipsing all that exists
 searching for an exit
 an escape from all real
-crucial fictions that link us to the weight splinters of light balanced on skin
+crucial fictions that link us to the weight
+splinters of light balanced on skin
 blood that sings
 the sting of weightlessness
 a ring of dead metal
 hollow eyes
 my face tells of worries
 inhibitions of my soul turned sour
-the tower falls and ten grow to take it’s place brick by brick this city dissolves into ash
+the tower falls and ten grow to take it’s place
+brick by brick this city dissolves into ash
 to be reformed as a ghost
 translucent
 haunting behind my fractured thought
 an idol poised to crumble
 threatening
 calling my bluff
-so corrupted the knot becomes the substance this prism of bones
-each facet cries for a home once remembered worms devour words
+so corrupted the knot becomes the substance
+this prism of bones
+each facet cries for a home once remembered
+worms devour words
 maggots feast on the dreams of leaders
 lead them to the cliff
 teach no other trails
@@ -54,7 +58,8 @@ i walk these halls a husk
 robotic limbs move erratic
 a depression into earth
 footprints fill with rain
-new leaves bloom already acquired the stain new lips already filled with words
+new leaves bloom already acquired the stain
+new lips already filled with words
 each step a puzzle cut from time
 the dusty chimes ring hollow
 bats flutter flimsy and perfect
@@ -62,13 +67,17 @@ eyes tuned to the dusk
 frequencies aloof
 the hoofs of night fading to silence
 one touch
-my house of cards dealt from weighted hands each cataclysm cataloged
-cherished charisma from a corpses lungs each ascension revealing further rungs
+my house of cards dealt from weighted hands
+each cataclysm cataloged
+cherished charisma from a corpses lungs
+each ascension revealing further rungs
 all is done
 but the birth of one is known to none
 the sky pepper gray snowflakes
-no fractal’s weight can calculate the chaos the meditators wander cross the clouds
+no fractal’s weight can calculate the chaos
+the meditators wander cross the clouds
 a poet impaled on words
-sharing the weight of a nameless herd blessing or curse this bubble must burst
+sharing the weight of a nameless herd
+blessing or curse this bubble must burst
 lone wolf cries to the world
 the moon reflects only silver

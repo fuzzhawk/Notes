@@ -12,7 +12,5 @@ Salvation
 Termination
 Of all that is fought so long to find
 
-
-
-You're all just waiting for
+You're all  just waiting for
 Waiting for a sign

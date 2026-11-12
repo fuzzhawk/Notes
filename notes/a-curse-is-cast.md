@@ -12,9 +12,8 @@ Embodieef in thebflask
 OmicinNt c
 Glass
 
-
-Opening thro8 tje epast
+Opening thro8  tje epast
 
 Ooeknrpinds
-I dont even hear. Anything
+I don't even hear. Anything
 I M blazddvenny

@@ -17,6 +17,4 @@ Caress of the infinite
 Interface disintegrate
 Abandon the endless
 
-
-Spoken word British female voice poetry talking
-Sci fi sound design
+Spoken word British female voice poetry talking Sci fi sound design

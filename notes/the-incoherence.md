@@ -7,5 +7,4 @@ pinned: false
 
 The incoherence
 
-
 Temporal symmetry

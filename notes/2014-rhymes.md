@@ -5,86 +5,61 @@ updated: 2026-06-16T03:37:28.000Z
 pinned: false
 ---
 
-HIT EM WIT TRUTH THE PYSICAL TUNE
+ HIT EM WIT TRUTH THE PYSICAL TUNE
 
-EVEN IF YOU THOUGHT IS WASN'T
-POSSIBLE TO DO
+EVEN IF YOU THOUGHT IS WASN'T POSSIBLE TO DO
 
-SETTING INTO MOTION THE MOMENT IN
-FULL BLOOM
+  SETTING INTO MOTION THE MOMENT IN FULL BLOOM
 
 LOVE LIKE NOTHIN TO LOSE
 
 (LOVE MOVES)
 
-LIFT YOUR LIGHT OUT OF THE TOMB
+ LIFT YOUR LIGHT OUT OF THE TOMB
 
-THATCHER MIND BUILT GRIND TO SILT THE
-ROCK ROOM
+THATCHER MIND BUILT GRIND TO SILT THE ROCK ROOM
 
-
-LASSO THE HEART CRYSTAL MARK OF THE
-MOON AND KEEP IT CLOSE
+LASSO THE HEART CRYSTAL MARK OF THE MOON AND KEEP IT CLOSE
 
 IF THE DOSE SPEAKS TRUE
 
-
-
 WE STEPPIN THROUGH
 
+GET A LESSON FROM THE BIRDS THAT KNEW
 
-GET A LESSON FROM THE BIRDS THAT
-KNEW
+PORTAL GUIDE FIND THE VIBE UNDER THE WATERFALL THEY FLEW
 
-PORTAL GUIDE FIND THE VIBE UNDER THE
-WATERFALL THEY FLEW
+WHAT IS SMALL SELECTED THE SEED GREW- BOOTS
 
-WHAT IS SMALL SELECTED THE SEED
-GREW- BOOTS
+AND A PACK STRAPPED TOGETHER WITH SINEW
 
-AND A PACK STRAPPED TOGETHER WITH
-SINEW
-
-
-MANAGING A CRAFT WITH A CREW OF EX
-CANABLES
+MANAGING A CRAFT WITH A CREW OF EX CANABLES
 
 SAILING THRU THE RUINS OF THE CAPITAL
 
-LOOPING WITH THE WOLVES THAT FOLLOW
-THE CALL OF THE COLD SOUL
+LOOPING WITH THE WOLVES THAT FOLLOW THE CALL OF THE COLD SOUL
 
 MAN AND ANIMAL
 
-COMPAINIONS INNA LAND THAT IS
-MAGICAL
+COMPAINIONS INNA LAND THAT IS MAGICAL
 
+   NO SWORD IS IMMORTAL THE CORNER CONQUERED
 
-NO SWORD IS IMMORTAL THE CORNER
-CONQUERED
+NO PRISONS CAN HOLD US IF WE ARE FOCUSED AND CONCIOUS
 
-NO PRISONS CAN HOLD US IF WE ARE
-FOCUSED AND CONCIOUS
+NO TERRITORIES HELD BY THE AUTHORITY OF sPONSORS
 
-NO TERRITORIES HELD BY THE AUTHORITY
-OF sPONSORS
+SHAPESHIFTIN THRU SERVAILENCE OF THE MONSTER
 
-SHAPESHIFTIN THRU SERVAILENCE OF THE
-MONSTER
+FEAR TACIC NAIL TO THE WALL A FEW MARTYRS
 
-
-FEAR TACIC NAIL TO THE WALL A FEW
-MARTYRS
-
-I SEEN SOME GOOD FREINDS FALL TO
-THOSE ARCHERS
+I SEEN SOME GOOD FREINDS FALL TO THOSE ARCHERS
 
 BUT STILL WE MARTIAN
 
 WE CAN FEEL CATHARSIS
 
 WE FOLLOWING THE PATH OF THE ARTIST
-
 
 MANIFEST THE LIGHT WITHIN
 
@@ -98,33 +73,25 @@ LIVE LIFE TO LAUGH THE HARDEST
 
 AT THE HARDSHIP
 
-YOU CAN TRANSMUTE YOUR BODY INTO A
-STARSHIP
-
+YOU CAN TRANSMUTE YOUR BODY INTO A STARSHIP
 
 KEEP THE FIRE BURNING WITHIN
 
 RESPECT YOUR DARKNESS
 
-LEVITATE INTO ANOTHER PLACE WHERE
-THE HEART IS
+LEVITATE INTO ANOTHER PLACE WHERE THE HEART IS
 
 SEEKING THE FREEDOM
 
 AS THE ART ENLARGES
 
-STANDING IN THE BOMBARDMENT
-UNGAURGED
+STANDING IN THE BOMBARDMENT UNGAURGED
 
+EACH ONE TEACH ONE CLEAN UP THE GARBAGE
 
-EACH ONE TEACH ONE CLEAN UP THE
-GARBAGE
+LEAVE NO TRACE UNLESS I'M CARRIYING A MARKER
 
-LEAVE NO TRACE UNLESS I'M CARRIYING A
-MARKER
-
-PHANTOM ITELEIGENCE KEEPING THE PACE
-FALLING INTOPLACE
+PHANTOM ITELEIGENCE KEEPING THE PACE FALLING INTOPLACE
 
 (A RACE OF MARTIANS)
 
@@ -134,41 +101,25 @@ THE HARD EARNED KNOWLEDGE
 
 AND WE'RE ALL A PART OF THE PROCESS
 
-THE ELEMENTS THAT PROSPER ARE THE
-ONES THAT WE FOSTER
+THE ELEMENTS THAT PROSPER ARE THE ONES THAT WE FOSTER
 
-SO DON'T LET YOUR LOVE GET SMOTHERED
-BY YOUR CAUTION
+SO DON'T LET YOUR LOVE GET SMOTHERED BY YOUR CAUTION
 
-LET IT BLOSSOM EVEN ON THE DIRTY
-STREETS
+LET IT BLOSSOM EVEN ON THE DIRTY STREETS
 
-HUMAN BEANZ'VE FEINDED WITH
-MURDERUS FEATS
+HUMAN BEANZ'VE FEINDED WITH MURDERUS FEATS
 
-FOOD FOR THE FEAST DEVOURED BY THE
-RATS
+FOOD FOR THE FEAST DEVOURED BY THE RATS
 
-THE CASTLE RANSACKED PEOPLE CAUGHT
-UP IN THE TRAP
+THE CASTLE RANSACKED PEOPLE CAUGHT UP IN THE TRAP
 
+FOLLOWING THE HOLLOW MONOLOG AUTOMATON
 
-FOLLOWING THE HOLLOW MONOLOG
-AUTOMATON
+POLINATING IN STRANGE WAYS OVER FADED DAYS
 
-POLINATING IN STRANGE WAYS OVER
-FADED DAYS
+A BREED FROM SPACE THAT BELIEVES IN ITS FACE
 
-A BREED FROM SPACE THAT BELIEVES IN
-ITS FACE
-
-THEY GOT METER MAIDS FOR THE FEEDER
-FAITH
-
-
-
-
-
+THEY GOT METER MAIDS FOR THE FEEDER FAITH
 
 my star's severed
 
@@ -178,26 +129,21 @@ facade faded late at night i'm blurred
 
 burned whatever
 
-
 mixed pleasures a misfit's mentality measured
 
 growing in my feathers i'ma fly to cut the tethers
-
 
 finally my virus complete my soul release
 
 the old anxieties the minds cynicism and irony
 
-
 core unfiltered synchronized wit logic
 
 approach the object
 
-engage those who process
+engage  those who process
 
 nonsense with caution
-
-
 
 learning to cultivate the void outside the voices of the monsters
 
@@ -215,11 +161,7 @@ make use of the nutrients and nurture before the harvest
 
 nerve endings of an artist burning to the perfect target
 
-
 let the arrow fly base into to your bone marrow shed your retro paradigm
-
-
-
 
 
 
@@ -228,9 +170,6 @@ just cause
 laws just claws
 
 lives lost knives drawn the mind
-
-
-
 
 the seeds deep in the ocean
 
@@ -244,14 +183,13 @@ wise fools who used to be handsomer
 
 we shared a draft in the vast universe hit em with music first
 
-
 dream in a bottle
 
 the daemon we follow
 
 cast out of the metal distilled from our soul
 
-enter the spell of the physical
+enter the spell of the physical
 
 the people are hearded like cattle to home
 
@@ -259,14 +197,11 @@ leading em on with false hope the jokers surprise
 
 but we out on the rim shot borderline seeking brand new highs
 
-
-
 is should be plain to see that rappings not a game to me
 
 i'm not interested in the pages of your magazines
 
 'cause i got a vision, g, I'm on a mission, see
-
 
 blue eagle not eval
 
@@ -300,7 +235,7 @@ an ameboa division
 
 an infinite mission
 
-a physical shell and
+a physical shell and
 
 and a vision that fell from it's prime
 
@@ -322,17 +257,17 @@ of our generations ancient laws
 
 the layers upon witch we be feeling
 
-and manipulated freely by the things that were believing and were lost
+and manipulated  freely by the things that we're believing and we're lost
 
 drifting mystic gotta get your soul up out of that fog
 
-we have risen but were still missing pieces
+we have risen but we're still missing pieces
 
 reaching after effect and cause
 
 i cross the rubicon with no boots on
 
-im anusuance
+i'm a nusuance
 
 evilution motion in my neurons
 
@@ -344,7 +279,7 @@ catching the questions
 
 my estimate of transgressions
 
-and the best i can muster of blessings
+and the best i  can muster of blessings
 
 for those who live free
 
@@ -360,7 +295,6 @@ exhale crystalize
 
 live lives you're magnificant, fly
 
-
 levitate into the sky
 
 deep in the earth i birth this rhyme
@@ -368,7 +302,6 @@ deep in the earth i birth this rhyme
 deliver the verse to the kind
 
 like appleseed cyanide
-
 
 he applied
 
@@ -386,7 +319,6 @@ where the evience shifts polarity
 
 marry the acid to the alkaline
 
-
 and still we taste the fruit of the vine
 
 visiting many meticulus
@@ -397,12 +329,11 @@ all cylanders firing
 
 and many motors move with violence
 
-mind storm cresendos with cellos and violins
+mind storm  cresendos with cellos and violins
 
 the lions sin
 
-crying in the wilderness willing this wielding wisdom that cuts like diamonds
-
+crying in the wilderness willing this  wielding wisdom that cuts like diamonds
 
 pulling on the ears of juggernaught culture mines the mindbender
 
@@ -415,7 +346,6 @@ find the sunny resin
 medicine for rhyme intention
 
 travel to the 5th dimension wit protection and gatekeepers blessings
-
 
 bend in perception and tweak your hologram as needed
 

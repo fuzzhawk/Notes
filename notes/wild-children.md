@@ -9,7 +9,8 @@ Our lives reflected by a mirror that accelerates
 Our desires.
 Manifested longing become abstracted into a sculpted pitch.
 Hurtling particals of fascination, slung shot to pierce our precious membranes
-Every blemish and stain magnified exponentially exploited
+Every blemish and stain magnified
+ exponentially exploited
 to squeeze another silver drop into our most innocent absorbers
 Mouths open, souls empty overfilled
 Slogans leak from our tortured pores
@@ -28,7 +29,7 @@ As we can no longer decern between reality and the shadows we cast on to enchant
 Our Distorted reflections are the dreamers now, we are simply here to drool and witness.
 Our every move assisted
 Foretold in ledgers
-by prophets
+ by prophets
 Scribbled
 in the margins
 

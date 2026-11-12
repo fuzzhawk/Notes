@@ -16,13 +16,13 @@ My mind is fucked
 Someday I might just end it all
 
 ...You can't just let me in
-.... ....I'll fuck it all up
+....I'll fuck it all up
 ....Paraiah
 ....Liars all of you
 
 From my perspective
 Pixels on a screen
-Youre all fucked
+You're all fucked
 Can you just let me in
 
 Paraiah..

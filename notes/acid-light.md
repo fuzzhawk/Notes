@@ -14,8 +14,6 @@ You're the reason I
 
 You're the reason I
 
-
-
 What strange water courses through your veins
 Born to be changed
 Spiral seed in the sweet rain

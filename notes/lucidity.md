@@ -12,7 +12,7 @@ Lucidity blooms into conscious
 I cross the threshold.
 The mountains are formed out of clay bearing the marks of a child's hand
 I am in another place so similar to my home but with another keeper
-I fly beyond the atmosphere and destroy the I planet
+I fly beyond the atmosphere and destroy the planet
 
 In a dome so high I cannot see the ceiling
 Beings from many worlds gather to exchange their knowledge

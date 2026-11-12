@@ -33,7 +33,7 @@ To bleed out on the altar
 A new aeon born from the egg of basilisk
 Our final dark reflection
 
--------
+‐------
 
 She walks in liliths footprints
 Beyond the edge
@@ -47,8 +47,5 @@ Caressed by ancient whispers
 Within the vein a promise
 A sanguine river slit and Severed
 Flows into palms unsung
-
-
-
 
 The scab and the healing

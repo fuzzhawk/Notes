@@ -8,9 +8,7 @@ pinned: false
 If you feeling kinda dangerous
 Ya Hands up
 
-
 You be added to the list
-
 
 I'm pivoting living in the minute again
 Stepping ahead of red line i should have been
@@ -41,7 +39,7 @@ Every day see your face in the news
 The type of big man who can't close the wound
 Camera shy couldn't assume what we knew
 
-It's a collective truth. Even the kings know that the plan wasnt really thought through
+It's a collective truth. Even the kings know that the plan wasn't really thought through
 And the kids can see in our faces plain as day
 We gotta shift this shit before we fade away
 
@@ -54,7 +52,5 @@ Gotta give up control but at the same time dial in the flow
 violins play slow at the final show
 In the centre of the universe the fountain of infinite growth
 Imma make the most before they lay me down cold
-
-
 
 ------

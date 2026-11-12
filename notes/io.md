@@ -8,7 +8,7 @@ pinned: false
 I'm just a little pussycat
 I'll scratch your little pussy itch
 All my haters can get fucked
-Il scratch your fuckin eyes out
+I'll scratch your fuckin eyes out
 
 Meow meow meow meow meow motherfucker
 Raaaa
@@ -23,4 +23,4 @@ I will fucking murder You
 
 Meow meow meow meow meow
 Motherfucker
-x whatever
+× whatever

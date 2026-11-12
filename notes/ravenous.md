@@ -7,7 +7,8 @@ pinned: false
 
 Faceing the fight with no chance to survive
 Relinquished your soul to the call of the night
-Animated body Fueled only by spite ravenous sprit is brought back to life
+Animated body Fueled only by spite
+ravenous sprit is brought back to life
 
 Tonight we dine on the corpses of slain
 Never to know the peace of the grave

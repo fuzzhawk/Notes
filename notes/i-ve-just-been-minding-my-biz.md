@@ -8,7 +8,7 @@ pinned: false
 I've just been minding my biz
 But you storys got more plot holes than a sieve
 And I can smell the liquor on your breath when we kiss.
-I know where you wanna go show me where itis
+I know where you wanna go show me where it is
 
 At the Meat market
 She searches for a target

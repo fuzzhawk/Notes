@@ -7,7 +7,6 @@ pinned: false
 
 Krankenwagon
 
-
 The keyboard is fox noises
 
 Bass line driven goth anthem

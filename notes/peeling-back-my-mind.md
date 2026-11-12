@@ -8,4 +8,4 @@ pinned: false
 Peeling back my mind
 Heating it inside
 
-Youre Shadowy
+You're Shadowy

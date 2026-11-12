@@ -7,8 +7,4 @@ pinned: false
 
 I've got the means of production
 
-
-
-
-
 I'll show you clss reduction

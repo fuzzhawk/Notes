@@ -6,4 +6,4 @@ pinned: false
 ---
 
 Act 1: the planet
-As night falls the scientists huddle around the heat source inside the research facility. Morale is low
+As night falls the scientists huddle around the heat source inside the research facility.  Morale is low

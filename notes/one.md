@@ -26,14 +26,12 @@ Catching a simple sting
 Centuries corroded the kings
 Visages crumbled into unrecognizable things
 
-
 Find me
 My muse
 That moves inside me
 My blood and tides are rising
 My soul is tired of fighting
 Tired of fighting
-
 
 Sleep beneath the snow
 Hibernation dreams accumulate and grow
@@ -58,7 +56,6 @@ That moves inside me
 My blood and tides are rising
 My soul is tired of fighting
 Tired of fighting
-
 
 Kaleidoscope
 Rising from the smoke

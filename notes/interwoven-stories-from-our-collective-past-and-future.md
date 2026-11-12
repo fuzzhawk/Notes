@@ -7,6 +7,6 @@ pinned: false
 
 Interwoven stories from our collective past and future
 
-Assisted by cutting edge media technology
+ Assisted by cutting edge media technology
 
 Envisioning an alternative vision of the future seen through a northern lens

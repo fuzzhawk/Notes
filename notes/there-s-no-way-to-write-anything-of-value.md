@@ -9,7 +9,6 @@ There s no way to write anything of value
 
 It's just words that will soon become indistinguishable from the noise
 
-Sentences delivered towards a void in
-Sentience
+Sentences delivered towards a void in Sentience
 
 Crossover frequencies arbitrarily rendered
