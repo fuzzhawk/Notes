@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+<title>Notes</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Compact audio player (toggled from the menu) -->
+<div id="player" class="player" hidden>
+  <button id="pl-play" class="ib" type="button" aria-label="Play">
+    <svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+  </button>
+  <button id="pl-track" class="pl-track" type="button" aria-label="Choose track">No audio</button>
+  <input id="pl-seek" class="pl-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek">
+  <span id="pl-time" class="pl-time">0:00</span>
+  <button id="pl-loop" class="ib" type="button" aria-label="Loop" aria-pressed="false">
+    <svg viewBox="0 0 24 24"><path d="M17 2l3 3-3 3M4 11V9a4 4 0 0 1 4-4h12M7 22l-3-3 3-3M20 13v2a4 4 0 0 1-4 4H4"/></svg>
+  </button>
+</div>
+<div id="tracks" class="tracks" hidden>
+  <ul id="track-list"></ul>
+  <button id="track-add" class="row-btn" type="button">+ Add audio files</button>
+  <input id="track-file" type="file" accept="audio/*" multiple hidden>
+</div>
+
+<div id="app" class="app">
+  <!-- Notes list -->
+  <main id="list-view" class="view">
+    <header class="bar">
+      <button class="ib menu-btn" type="button" aria-label="Menu">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <div class="bar-title">
+        <h1 id="list-title">Notes</h1>
+        <button id="status" class="status" type="button"></button>
+      </div>
+      <button id="sync-btn" class="ib" type="button" aria-label="Sync now">
+        <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-14.3 4.9M4 12a8 8 0 0 1 14.3-4.9M18.5 3v4.5H14M5.5 21v-4.5H10"/></svg>
+      </button>
+    </header>
+    <div class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="search" type="search" placeholder="Search notes, #tags" autocomplete="off" enterkeyhint="search" aria-label="Search notes">
+      <button id="search-clear" class="ib sm" type="button" aria-label="Clear search" hidden>
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="count"><span id="count"></span><button id="tag-filter" class="chip" type="button" hidden></button></div>
+    <ul id="notes" class="notes"></ul>
+    <div id="empty" class="empty" hidden></div>
+    <button id="new-btn" class="fab" type="button" aria-label="New note">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </main>
+
+  <!-- Secondary pages: catalog, tags, rhymes, format -->
+  <section id="page" class="view page" hidden>
+    <header class="bar">
+      <button id="page-back" class="ib" type="button" aria-label="Back">
+        <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <div class="bar-title"><h2 id="page-title"></h2></div>
+    </header>
+
+    <div id="pg-catalog" class="pg" hidden>
+      <div class="pg-tools">
+        <input id="cat-filter" class="field" type="search" placeholder="Filter titles" autocomplete="off" aria-label="Filter titles">
+        <div class="seg" role="group" aria-label="Sort">
+          <button type="button" data-sort="az" aria-pressed="true">A–Z</button>
+          <button type="button" data-sort="recent" aria-pressed="false">Recent</button>
+          <button type="button" data-sort="tag" aria-pressed="false">Tag</button>
+        </div>
+      </div>
+      <div id="cat-list" class="cat"></div>
+    </div>
+
+    <div id="pg-tags" class="pg" hidden>
+      <ul id="tag-list" class="rows"></ul>
+      <p id="tags-empty" class="hint pad" hidden>No tags yet. Open a note and type in the tag line under its title.</p>
+    </div>
+
+    <div id="pg-rhymes" class="pg" hidden>
+      <div class="pg-tools">
+        <input id="rh-input" class="field" type="search" placeholder="Find rhymes for…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-label="Word">
+      </div>
+      <p id="rh-hint" class="hint pad"></p>
+      <div id="rh-results" class="rh"></div>
+    </div>
+
+    <div id="pg-format" class="pg" hidden>
+      <div class="opt">
+        <span>Font</span>
+        <div class="seg" data-opt="font">
+          <button type="button" data-v="sans">Sans</button>
+          <button type="button" data-v="serif">Serif</button>
+          <button type="button" data-v="mono">Mono</button>
+        </div>
+      </div>
+      <div class="opt">
+        <span>Size</span>
+        <div class="seg" data-opt="size">
+          <button type="button" data-v="s">S</button>
+          <button type="button" data-v="m">M</button>
+          <button type="button" data-v="l">L</button>
+          <button type="button" data-v="xl">XL</button>
+        </div>
+      </div>
+      <div class="opt">
+        <span>Line spacing</span>
+        <div class="seg" data-opt="spacing">
+          <button type="button" data-v="tight">Tight</button>
+          <button type="button" data-v="normal">Normal</button>
+          <button type="button" data-v="loose">Loose</button>
+        </div>
+      </div>
+      <div class="opt">
+        <span>Formatting toolbar</span>
+        <div class="seg" data-opt="toolbar">
+          <button type="button" data-v="on">On</button>
+          <button type="button" data-v="off">Off</button>
+        </div>
+      </div>
+      <p class="hint pad">The toolbar in a note adds Markdown: <b>**bold**</b>, <i>*italic*</i>, <s>~~strike~~</s>, # headings, - lists, - [ ] checklists and &gt; quotes. Tap the eye in a note to see it formatted.</p>
+    </div>
+  </section>
+
+  <!-- Editor -->
+  <section id="editor" class="view editor" hidden>
+    <header class="bar">
+      <button id="back-btn" class="ib" type="button" aria-label="Back">
+        <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <div class="bar-title"><span id="edited" class="status"></span></div>
+      <button id="preview-btn" class="ib" type="button" aria-label="Formatted view" aria-pressed="false">
+        <svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+      <button class="ib menu-btn" type="button" aria-label="Menu">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </header>
+    <input id="title" class="title-input" type="text" placeholder="Title" autocomplete="off" enterkeyhint="next" aria-label="Title">
+    <div id="tag-row" class="tag-row">
+      <span id="note-tags"></span>
+      <input id="tag-input" type="text" placeholder="+ tag" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" aria-label="Add tag">
+    </div>
+    <textarea id="body" class="body-input" placeholder="Start writing…" aria-label="Note"></textarea>
+    <div id="preview" class="preview body-text" hidden></div>
+    <div id="fmt-bar" class="fmt-bar" role="toolbar" aria-label="Formatting">
+      <button type="button" data-fmt="bold" aria-label="Bold"><b>B</b></button>
+      <button type="button" data-fmt="italic" aria-label="Italic"><i>I</i></button>
+      <button type="button" data-fmt="strike" aria-label="Strikethrough"><s>S</s></button>
+      <button type="button" data-fmt="heading" aria-label="Heading">H</button>
+      <button type="button" data-fmt="list" aria-label="Bulleted list">•</button>
+      <button type="button" data-fmt="check" aria-label="Checklist">☐</button>
+      <button type="button" data-fmt="quote" aria-label="Quote">❝</button>
+      <button type="button" data-fmt="rhyme" aria-label="Rhymes for word at cursor">Rhyme</button>
+    </div>
+  </section>
+</div>
+
+<!-- Hamburger menu -->
+<div id="scrim" class="scrim" hidden></div>
+<nav id="drawer" class="drawer" hidden aria-label="Menu">
+  <div class="drawer-head">Notes</div>
+  <div id="menu-note" class="menu-group" hidden>
+    <button type="button" data-menu="pin">Pin note</button>
+    <button type="button" data-menu="delete" class="danger">Delete note</button>
+  </div>
+  <div class="menu-group">
+    <button type="button" data-menu="notes">All notes</button>
+    <button type="button" data-menu="search">Search</button>
+    <button type="button" data-menu="catalog">Catalog</button>
+    <button type="button" data-menu="tags">Tags</button>
+    <button type="button" data-menu="rhymes">Rhyming dictionary</button>
+    <button type="button" data-menu="format">Text format</button>
+  </div>
+  <div class="menu-group">
+    <button type="button" data-menu="player" class="toggle"><span>Audio player</span><span id="player-switch" class="switch" aria-hidden="true"></span></button>
+    <button type="button" data-menu="sync">Sync settings</button>
+  </div>
+</nav>
+
+<dialog id="settings">
+  <form id="settings-form" method="dialog">
+    <h2>Sync to GitHub</h2>
+    <p class="hint">Notes are saved as Markdown files in the <code>notes/</code> folder of the repository.</p>
+    <label>Owner<input id="cfg-owner" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" required></label>
+    <label>Repository<input id="cfg-repo" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" required></label>
+    <label>Branch<input id="cfg-branch" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" required></label>
+    <label>Access token<input id="cfg-token" type="password" autocomplete="off" placeholder="github_pat_…"></label>
+    <p class="hint">Create a <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">fine-grained token</a> for this repository only, with <b>Contents: Read and write</b>. It is stored only on this device.</p>
+    <p id="settings-msg" class="hint msg"></p>
+    <div class="actions">
+      <button type="button" id="settings-cancel" class="btn ghost">Close</button>
+      <button type="submit" class="btn">Save &amp; sync</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>

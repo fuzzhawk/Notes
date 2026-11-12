@@ -1,0 +1,75 @@
+name: Build Android APK
+
+on:
+  push:
+    # Notes synced from the app land in notes/ — those commits need no new APK.
+    paths-ignore:
+      - 'notes/**'
+      - '**.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apk
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Signing key
+        working-directory: android/app
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          if [ -n "$ANDROID_KEYSTORE" ] && [ -n "$KEYSTORE_PASSWORD" ]; then
+            echo "$ANDROID_KEYSTORE" | base64 -d > release.keystore
+            echo "KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
+            echo "SIGNING=stable" >> "$GITHUB_ENV"
+          else
+            # No saved key yet: sign with a one-off key. Such a build can't
+            # install over a previous one (uninstall first).
+            PW="$(openssl rand -hex 16)"
+            echo "::add-mask::$PW"
+            keytool -genkeypair -keystore release.keystore -storepass "$PW" -keypass "$PW" \
+              -alias notes -keyalg RSA -keysize 2048 -validity 36500 -dname "CN=Notes"
+            echo "KEYSTORE_PASSWORD=$PW" >> "$GITHUB_ENV"
+            echo "SIGNING=temporary" >> "$GITHUB_ENV"
+            echo "::warning::ANDROID_KEYSTORE secret not set; this APK uses a temporary signing key."
+          fi
+
+      - name: Build APK
+        working-directory: android
+        env:
+          VERSION_CODE: ${{ github.run_number }}
+        run: ./gradlew --no-daemon assembleRelease
+
+      - name: Collect APK
+        run: cp android/app/build/outputs/apk/release/app-release.apk Notes.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Notes-apk
+          path: Notes.apk
+
+      - name: Publish as the latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete apk --yes --cleanup-tag || true
+          gh release create apk Notes.apk \
+            --target "$GITHUB_SHA" \
+            --title "Notes for Android — build ${{ github.run_number }}" \
+            --notes "Built from ${GITHUB_REF_NAME} @ ${GITHUB_SHA::7}. Open this page on your phone and tap Notes.apk to install or update.$([ "$SIGNING" = temporary ] && echo ' This build has a temporary signing key - uninstall the previous version before installing it.')"

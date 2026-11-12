@@ -1,0 +1,55 @@
+plugins {
+    id 'com.android.application'
+}
+
+// CI passes its run number so every build installs as an update.
+def buildNumber = (System.getenv('VERSION_CODE') ?: '1') as Integer
+
+android {
+    namespace 'io.github.fuzzhawk.notes'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'io.github.fuzzhawk.notes'
+        minSdk 26
+        targetSdk 35
+        versionCode buildNumber
+        versionName "1.0.${buildNumber}"
+    }
+
+    signingConfigs {
+        release {
+            // CI writes the key here from the ANDROID_KEYSTORE secret (or makes a
+            // temporary one). The same key lets each new APK install as an update.
+            storeFile file('release.keystore')
+            storePassword System.getenv('KEYSTORE_PASSWORD')
+            keyAlias 'notes'
+            keyPassword System.getenv('KEYSTORE_PASSWORD')
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    // The app itself is the web app in /web, bundled into the APK.
+    sourceSets {
+        main {
+            assets.srcDirs = ['../../web']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.activity:activity:1.9.3'
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.webkit:webkit:1.12.1'
+}
