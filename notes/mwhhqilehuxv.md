@@ -1,7 +1,7 @@
 ---
 title: "Glacier boys idea"
 tags: []
-updated: 2026-11-15T07:14:08.497Z
+updated: 2026-11-15T07:14:52.510Z
 pinned: false
 ---
 
@@ -110,7 +110,7 @@ Tape 1
 Ocarina of time shit
 Master chef slowed down
 
-
+Yukon a
 
 On mpc
 Spaghetti western - jangly guitar sagebrush and wind
