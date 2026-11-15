@@ -1,7 +1,7 @@
 ---
 title: "Control"
 tags: []
-updated: 2026-10-20T17:33:02.000Z
+updated: 2026-11-15T07:25:44.519Z
 pinned: false
 ---
 
@@ -22,7 +22,7 @@ It takes everything out of his soul
 
 On the streets walking out of my mind
 On the outside everythings is fine
-But inside there's for crime
+But inside there's a hunger for crime
 Why be alive when it's easy to die
 
 We don't know so we give em control
