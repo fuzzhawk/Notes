@@ -1,7 +1,7 @@
 ---
 title: "Glacier boys idea"
 tags: []
-updated: 2026-11-15T07:20:35.736Z
+updated: 2026-11-15T07:22:45.903Z
 pinned: false
 ---
 
@@ -119,6 +119,7 @@ Drinking out of cups
 Drone keys - a d e
  B. - e flat
 
+James bond style shit
 
 
 On mpc
