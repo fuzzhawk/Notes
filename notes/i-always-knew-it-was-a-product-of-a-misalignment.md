@@ -1,7 +1,7 @@
 ---
 title: "I always knew it was a product of a misalignment"
-tags: []
-updated: 2026-11-09T00:18:52.000Z
+tags: ["morningcloak"]
+updated: 2026-11-16T06:30:38.230Z
 pinned: false
 ---
 
