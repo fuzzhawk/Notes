@@ -1,7 +1,7 @@
 ---
 title: "Disrupted"
-tags: []
-updated: 2026-10-24T01:41:34.000Z
+tags: ["morningcloak"]
+updated: 2026-11-16T06:31:41.765Z
 pinned: false
 ---
 
