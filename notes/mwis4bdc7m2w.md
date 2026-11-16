@@ -1,7 +1,7 @@
 ---
-title: "Cast a shadow (conflict copy)"
+title: "Cast a shadow"
 tags: []
-updated: 2026-11-16T04:41:57.439Z
+updated: 2026-11-16T05:01:28.631Z
 pinned: false
 ---
 
@@ -23,6 +23,5 @@ Cockroach fed with a silver spoon
 
 Cast a shadow
 Cast a shadow
-
 
 
