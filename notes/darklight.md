@@ -1,7 +1,7 @@
 ---
 title: "Darklight"
-tags: []
-updated: 2026-11-06T01:08:16.000Z
+tags: ["morningcloak"]
+updated: 2026-11-16T06:31:24.005Z
 pinned: false
 ---
 
