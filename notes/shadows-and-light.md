@@ -1,7 +1,7 @@
 ---
 title: "Shadows and light"
-tags: []
-updated: 2026-11-07T00:42:30.000Z
+tags: ["morningcloak"]
+updated: 2026-11-16T06:30:54.112Z
 pinned: false
 ---
 
@@ -15,7 +15,7 @@ The exit lost and all surrounds you
 With no one you can rely on
 Thread you follow helps them find you
 
-Weird ways
+- [ ] Weird ways
 Slow days
 Parallel
 Folding
