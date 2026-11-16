@@ -1,7 +1,7 @@
 ---
 title: "Moistened"
-tags: []
-updated: 2026-09-24T07:45:44.000Z
+tags: ["tarteric"]
+updated: 2026-11-16T06:32:15.623Z
 pinned: false
 ---
 
