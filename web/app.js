@@ -1415,6 +1415,7 @@ function b64(str) {
 
 async function gh(method, path, { body, raw } = {}) {
   const base = `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}`;
+  if (method === 'GET') path += (path.includes('?') ? '&' : '?') + '_=' + Date.now(); // skip caches
   let res;
   try {
     res = await fetch(base + path, {
@@ -1461,8 +1462,50 @@ async function fetchRemote(id) {
   return res.text();
 }
 
+const fieldsOf = (n) => ({ title: n.title, body: n.body, tags: (n.tags || []).slice(), pinned: !!n.pinned });
+
+/**
+ * Remember a version of a note that is (or was) on GitHub. GitHub's API can
+ * answer with an out-of-date listing for a little while after a write; a sha
+ * we already know is an old version, not a change made somewhere else.
+ */
+function markSynced(note, sha, fields) {
+  note.sha = sha;
+  note.shas = [...(note.shas || []).filter((x) => x !== sha), sha].slice(-30);
+  note.base = fields; // what GitHub has, used to merge later edits
+}
+
+const sameTags = (a, b) => a.length === b.length && a.every((t, i) => t === b[i]);
+
+/**
+ * Three-way merge of a note edited here (local) and on GitHub (remote), from
+ * the last version both had (base). Title, tags and pin never conflict: a side
+ * that changed them wins, and if both did, this device wins. Only the text can
+ * truly conflict. Returns null in that case.
+ */
+function mergeNote(base, local, remote) {
+  const pick = (l, r, b, same) => (same(l, b) ? r : l);
+  const eq = (a, b) => a === b;
+  if (local.body !== base.body && remote.body !== base.body && local.body !== remote.body) return null;
+  return {
+    title: pick(local.title, remote.title, base.title, eq),
+    body: pick(local.body, remote.body, base.body, eq),
+    tags: pick(local.tags, remote.tags, base.tags, sameTags).slice(),
+    pinned: pick(local.pinned, remote.pinned, base.pinned, eq),
+  };
+}
+
+/** True if the note's file really exists on GitHub (checked directly, not via the listing). */
+async function existsRemote(path) {
+  const res = await gh('GET', path + refQuery());
+  if (res.ok) return true;
+  if (res.status === 404) return false;
+  throw new SyncError(`GitHub error ${res.status}`);
+}
+
 async function pushNote(note) {
   const snapshot = serialize(note);
+  const fields = fieldsOf(note);
   const body = {
     message: `${note.sha ? 'Update' : 'Add'} note: ${note.title.trim().slice(0, 60) || 'Untitled'}`,
     content: b64(snapshot),
@@ -1472,7 +1515,7 @@ async function pushNote(note) {
   const res = await gh('PUT', filePath(note.id), { body });
   if (res.status === 409 || res.status === 422) throw new SyncError('A note changed on GitHub meanwhile — sync again');
   if (!res.ok) throw new SyncError(`Could not upload a note (${res.status})`);
-  note.sha = (await res.json()).content.sha;
+  markSynced(note, (await res.json()).content.sha, fields);
   // Keep it dirty if it was edited while the upload was in flight.
   if (!note.deleted && serialize(note) === snapshot) note.dirty = false;
   persist();
@@ -1492,30 +1535,51 @@ async function runSync() {
   // 1. Bring in remote additions and changes.
   for (const [id, sha] of remote) {
     const local = byId(id);
-    if (local && local.sha === sha) continue;
+    if (local && (local.sha === sha || (local.shas || []).includes(sha))) continue; // unchanged, or a stale listing
     const text = await fetchRemote(id);
     const data = parse(text, id);
+    const remoteFields = fieldsOf(data);
     flushEditor(); // capture anything typed while downloading
     if (!local) {
-      notes.push({ id, ...data, sha, dirty: false, deleted: false });
-    } else if (local.dirty && !local.deleted && serialize(local) !== text) {
-      // Edited on both sides: keep this device's version as a separate copy.
-      notes.push({
-        id: newId(), title: (local.title || 'Untitled') + ' (conflict copy)', body: local.body, tags: local.tags.slice(),
-        updated: local.updated, pinned: local.pinned, sha: null, dirty: true, deleted: false,
-      });
-      Object.assign(local, data, { sha, dirty: false, deleted: false });
+      const note = { id, ...data, dirty: false, deleted: false };
+      markSynced(note, sha, remoteFields);
+      notes.push(note);
+    } else if (!local.dirty || local.deleted) {
+      // Changed only on GitHub (a remote edit also beats a local delete).
+      Object.assign(local, data, { dirty: false, deleted: false });
+      markSynced(local, sha, remoteFields);
     } else {
-      // Remote is newer (a remote edit also beats a local delete).
-      Object.assign(local, data, { sha, dirty: false, deleted: false });
+      // Changed on both sides. Without a known base (notes synced by an older
+      // version of the app), treat identical text as the common base.
+      const base = local.base || (local.body === data.body ? { ...remoteFields, title: null, tags: [null], pinned: null } : null);
+      const merged = base && mergeNote(base, fieldsOf(local), remoteFields);
+      if (merged) {
+        const changed = local.title !== merged.title || local.body !== merged.body;
+        Object.assign(local, merged);
+        markSynced(local, sha, remoteFields);
+        local.dirty = JSON.stringify(fieldsOf(local)) !== JSON.stringify(remoteFields);
+        if (!local.dirty) local.updated = data.updated;
+        if (id === currentId && changed) fillEditor(local);
+      } else {
+        // The text was edited on both sides: keep this device's text as a copy.
+        notes.push({
+          id: newId(), title: (local.title || 'Untitled') + ' (conflict copy)', body: local.body, tags: local.tags.slice(),
+          updated: local.updated, pinned: local.pinned, sha: null, dirty: true, deleted: false,
+        });
+        Object.assign(local, data, { dirty: false, deleted: false });
+        markSynced(local, sha, remoteFields);
+        if (id === currentId) fillEditor(local);
+      }
     }
-    if (id === currentId) fillEditor(byId(id));
+    if (id === currentId && !local?.dirty) fillEditor(byId(id));
     persist();
   }
 
   // 2. Send local changes.
   for (const note of notes.slice()) {
-    const onRemote = remote.has(note.id);
+    let onRemote = remote.has(note.id);
+    // Missing from the listing: it may just be out of date, so ask for the file itself.
+    if (note.sha && !onRemote) onRemote = await existsRemote(filePath(note.id));
     if (note.deleted) {
       if (onRemote && note.sha) await deleteRemote(note);
       notes = notes.filter((n) => n !== note);
@@ -1523,6 +1587,7 @@ async function runSync() {
       // Deleted on another device.
       if (note.dirty) {
         note.sha = null;
+        note.base = null;
         await pushNote(note);
       } else if (note.id !== currentId) {
         notes = notes.filter((n) => n !== note);
@@ -1625,6 +1690,7 @@ async function syncAudio() {
       tracks = tracks.filter((x) => x !== t);
       changed = true;
     } else if (t.sha && !r && !t.dirty) {
+      if (await existsRemote(audioPath(file))) continue; // listing out of date
       await dropTrack(t); // deleted on another device
       tracks = tracks.filter((x) => x !== t);
       changed = true;
