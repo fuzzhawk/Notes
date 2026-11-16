@@ -1,7 +1,7 @@
 ---
 title: "Captured"
-tags: []
-updated: 2026-11-08T23:22:11.000Z
+tags: ["morningcloak"]
+updated: 2026-11-16T06:30:32.165Z
 pinned: false
 ---
 
