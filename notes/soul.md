@@ -1,7 +1,7 @@
 ---
 title: "Soul"
-tags: []
-updated: 2026-10-26T00:09:23.000Z
+tags: ["morningcloak"]
+updated: 2026-11-16T06:31:35.426Z
 pinned: false
 ---
 
