@@ -1,7 +1,7 @@
 ---
 title: "Viewing liminal space my raycaster meat hardware"
-tags: []
-updated: 2026-10-09T20:53:23.000Z
+tags: ["morningcloak"]
+updated: 2026-11-16T06:32:02.196Z
 pinned: false
 ---
 
