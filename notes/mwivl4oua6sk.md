@@ -1,7 +1,7 @@
 ---
 title: "Burn me up"
-tags: []
-updated: 2026-11-16T06:28:50.730Z
+tags: ["morningcloak"]
+updated: 2026-11-16T06:29:48.240Z
 pinned: false
 ---
 
@@ -29,3 +29,4 @@ Time will move
 never undo
 Riding on the wing you flew 
 
+~~~~
