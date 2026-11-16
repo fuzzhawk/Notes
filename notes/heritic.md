@@ -1,7 +1,7 @@
 ---
 title: "Heritic"
-tags: []
-updated: 2026-11-06T01:03:12.000Z
+tags: ["morningcloak"]
+updated: 2026-11-16T06:31:15.887Z
 pinned: false
 ---
 
