@@ -1,7 +1,7 @@
 ---
 title: "Morningcloak next step ideas"
-tags: []
-updated: 2026-11-15T02:52:09.110Z
+tags: ["morningcloak"]
+updated: 2026-11-16T06:30:04.439Z
 pinned: false
 ---
 
@@ -20,6 +20,5 @@ Book sessions with players in feb-march
 Goal of having our album track list finalized before I leave on 13th of Feb
 
 Create content for social media, album cover, logo, lyric zine and other merch ( t-shirts, stickers, magical items, jewelry etc
-
 
 
