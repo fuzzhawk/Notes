@@ -1,7 +1,7 @@
 ---
 title: "Erisian firmware plan"
 tags: []
-updated: 2026-11-17T04:01:27.419Z
+updated: 2026-11-17T04:01:30.776Z
 pinned: false
 ---
 
@@ -23,5 +23,5 @@ Fx:
 Tape saturation / compression
 Tape delay
 Plate reverb
-11
+1176 
 
