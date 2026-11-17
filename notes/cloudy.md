@@ -1,7 +1,7 @@
 ---
 title: "Cloudy"
-tags: ["2019-frances"]
-updated: 2026-07-23T20:19:51.000Z
+tags: ["2019-frances","morningcloak"]
+updated: 2026-11-17T03:08:51.536Z
 pinned: false
 ---
 
