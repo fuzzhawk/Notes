@@ -1,7 +1,7 @@
 ---
 title: "Erisian firmware plan"
 tags: []
-updated: 2026-11-17T04:10:35.571Z
+updated: 2026-11-17T04:12:25.616Z
 pinned: false
 ---
 
@@ -29,7 +29,7 @@ Keyboard patches:
 Pysically modeled Koto, flute, vibraphone
 808 bass synth with pitch env, legato and saturation
 Sine lead fm synth
-Granular synth with git-out sample 
+Granular synth with git-out sample (
 
 
 
