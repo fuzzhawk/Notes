@@ -1,7 +1,7 @@
 ---
 title: "So pale in the city"
-tags: []
-updated: 2025-10-26T19:48:40.000Z
+tags: ["morningcloak"]
+updated: 2026-11-17T03:10:04.624Z
 pinned: false
 ---
 
