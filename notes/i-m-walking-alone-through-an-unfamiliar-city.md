@@ -1,7 +1,7 @@
 ---
 title: "I'm walking alone through an unfamiliar city"
-tags: []
-updated: 2025-05-01T19:21:50.000Z
+tags: ["morningcloak"]
+updated: 2026-11-17T03:11:21.533Z
 pinned: false
 ---
 
