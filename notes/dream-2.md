@@ -1,7 +1,7 @@
 ---
 title: "Dream 2"
-tags: []
-updated: 2026-10-06T14:53:08.000Z
+tags: ["morningcloak"]
+updated: 2026-11-17T03:07:20.352Z
 pinned: false
 ---
 
