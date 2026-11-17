@@ -1,7 +1,7 @@
 ---
-title: "Brain stained with the cold shame"
-tags: []
-updated: 2025-06-03T12:15:29.000Z
+title: "Cold"
+tags: ["morningcloak"]
+updated: 2026-11-17T03:10:47.298Z
 pinned: false
 ---
 
