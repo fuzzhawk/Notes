@@ -1,7 +1,7 @@
 ---
 title: "Dressed to fade my time"
-tags: []
-updated: 2025-04-09T22:23:54.000Z
+tags: ["morningcloak"]
+updated: 2026-11-17T03:11:33.634Z
 pinned: false
 ---
 
