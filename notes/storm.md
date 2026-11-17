@@ -1,7 +1,7 @@
 ---
 title: "Storm"
-tags: []
-updated: 2026-10-25T23:00:01.000Z
+tags: ["morningcloak"]
+updated: 2026-11-17T03:08:20.879Z
 pinned: false
 ---
 
