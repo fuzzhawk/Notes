@@ -1,7 +1,7 @@
 ---
 title: "Erisian firmware plan"
 tags: []
-updated: 2026-11-17T04:01:30.776Z
+updated: 2026-11-17T04:04:34.423Z
 pinned: false
 ---
 
@@ -14,14 +14,15 @@ Karpluss strong 💪  drum module
 Fm drum module
 Fm 808 module
 Physically modeled shaker like MD
-Physically modeled klunk-bonk unit
+Physically modeled klunk-bonk percussion
 Physically modeled hi-hat / cym
 Embedded wav kick drum
 Texture & Transient layer for each sound
 
 Fx:
-Tape saturation / compression
+Tape saturation / compression /
 Tape delay
 Plate reverb
-1176 
+1176 style compression 
+Granular/buffer glitch/note repeat 
 
