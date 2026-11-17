@@ -1,7 +1,7 @@
 ---
 title: "Security breach"
-tags: []
-updated: 2026-10-31T20:45:38.000Z
+tags: ["tarteric"]
+updated: 2026-11-17T03:06:57.102Z
 pinned: false
 ---
 
