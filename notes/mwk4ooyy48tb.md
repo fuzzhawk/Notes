@@ -1,10 +1,12 @@
 ---
 title: "Erisian firmware plan"
 tags: []
-updated: 2026-11-17T04:22:41.860Z
+updated: 2026-11-17T04:23:50.529Z
 pinned: false
 ---
 
+
+Intro animation - golden apple explodes
 
 Drum sequencer - 16 steps * 4 pages
 11 voice drum engine ( select voice with black keys)
