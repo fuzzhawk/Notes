@@ -1,7 +1,7 @@
 ---
 title: "Erisian firmware plan"
 tags: []
-updated: 2026-11-17T04:04:34.423Z
+updated: 2026-11-17T04:08:22.797Z
 pinned: false
 ---
 
@@ -12,7 +12,6 @@ units - assigned to any layer md style
 
 Karpluss strong 💪  drum module
 Fm drum module
-Fm 808 module
 Physically modeled shaker like MD
 Physically modeled klunk-bonk percussion
 Physically modeled hi-hat / cym
@@ -24,5 +23,9 @@ Tape saturation / compression /
 Tape delay
 Plate reverb
 1176 style compression 
-Granular/buffer glitch/note repeat 
+Granular/buffer glitch/note repeat with slide parameters
 
+Keyboard patches:
+Pysically modeled Koto, flute, vibraphone
+808 bass synth with pitch env, legato and saturation
+Sine lead fm synth
