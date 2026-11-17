@@ -1,7 +1,7 @@
 ---
 title: "Stormy clouds"
-tags: []
-updated: 2025-09-03T20:23:46.000Z
+tags: ["morningcloak"]
+updated: 2026-11-17T03:10:16.127Z
 pinned: false
 ---
 
