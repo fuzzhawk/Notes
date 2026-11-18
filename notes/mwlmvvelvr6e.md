@@ -2,7 +2,7 @@
 title: ""
 tags: []
 created: 2026-11-18T04:41:13.149Z
-updated: 2026-11-18T04:45:44.332Z
+updated: 2026-11-18T04:46:09.587Z
 pinned: false
 ---
 
@@ -18,3 +18,4 @@ James Joyce
 J r r Tolkien 
 Friedrich Nietzsche
 Hermann Hesse 
+Phillip k d
