@@ -2,7 +2,7 @@
 title: ""
 tags: []
 created: 2026-11-18T04:41:13.149Z
-updated: 2026-11-18T04:45:15.219Z
+updated: 2026-11-18T04:45:44.332Z
 pinned: false
 ---
 
@@ -16,4 +16,5 @@ Jean-Paul Sartre
 Wilhelm riech 
 James Joyce 
 J r r Tolkien 
-Fredrick nitche
+Friedrich Nietzsche
+Hermann Hesse 
