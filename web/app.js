@@ -53,11 +53,11 @@ function formatDate(ms) {
 /* ================================================================== *
  * State
  * ================================================================== */
-/** Note: { id, title, body, tags[], updated (ms), pinned, sha (last synced blob), dirty, deleted } */
-let notes = load(LS_NOTES, []).map((n) => ({ tags: [], ...n }));
+/** Note: { id, title, body, tags[], created (ms), updated (ms), pinned, sha (last synced blob), dirty, deleted } */
+let notes = load(LS_NOTES, []).map((n) => ({ tags: [], ...n, created: n.created || createdFallback(n.id, n.updated) }));
 const cfg = Object.assign({ owner: 'fuzzhawk', repo: 'Notes', branch: 'main', token: '' }, load(LS_CFG, {}));
 const prefs = Object.assign(
-  { font: 'sans', size: 'm', spacing: 'normal', toolbar: 'on', player: false, loop: false, track: null, catSort: 'az' },
+  { font: 'sans', size: 'm', spacing: 'normal', toolbar: 'on', player: false, loop: false, track: null, catSort: 'az', sort: 'updated', wordCount: false },
   load(LS_PREFS, {})
 );
 
@@ -68,6 +68,22 @@ const savePrefs = () => save(LS_PREFS, prefs);
 const byId = (id) => notes.find((n) => n.id === id);
 const liveNotes = () => notes.filter((n) => !n.deleted);
 const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+/**
+ * Notes made before the app stored a creation date: ids made by the app
+ * start with the creation time (see newId); imported notes fall back to
+ * their last-edited date.
+ */
+function createdFallback(id, updated) {
+  if (/^[a-z0-9]{12}$/.test(id)) {
+    const t = parseInt(id.slice(0, -4), 36);
+    if (t > Date.UTC(2020, 0, 1) && t <= (updated || Date.now()) + 60000) return t;
+  }
+  return updated || Date.now();
+}
+
+/** The date the list is sorted by, per the "Sort by" menu option. */
+const sortDate = (n) => (prefs.sort === 'created' ? n.created : n.updated);
 
 /* ================================================================== *
  * Layers: drawer, pages, editor, dialogs. Each one is a history entry,
@@ -184,12 +200,16 @@ function snippet(body, terms) {
   return first <= 40 ? flat.slice(0, 200) : '…' + flat.slice(first - 40, first + 160);
 }
 
+const WORD = /[\p{L}\p{N}]+(?:['’-][\p{L}\p{N}]+)*/gu;
+const countWords = (text) => (text.match(WORD) || []).length;
+const plural = (n, w) => `${n.toLocaleString()} ${w}${n === 1 ? '' : 's'}`;
+
 function render() {
   const q = parseQuery();
   const live = liveNotes();
   const shown = live
     .filter((n) => matches(n, q))
-    .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || b.updated - a.updated);
+    .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || sortDate(b) - sortDate(a));
   const filtering = q.words.length || q.tags.length || tagFilter;
 
   $('#search-clear').hidden = !$('#search').value;
@@ -209,7 +229,9 @@ function render() {
       return `<li><button class="note" type="button" data-id="${esc(n.id)}">
         <div class="note-title">${n.pinned ? '<span class="pin">●</span>' : ''}${highlight(n.title || 'Untitled', q.words)}</div>
         ${snip ? `<div class="note-snippet">${highlight(snip, q.words)}</div>` : ''}
-        <div class="note-meta"><span>${formatDate(n.updated)}</span>${tags}${
+        <div class="note-meta"><span>${prefs.sort === 'created' ? 'Created ' : ''}${formatDate(sortDate(n))}</span>${
+          prefs.wordCount ? `<span>${plural(countWords(n.body), 'word')}</span>` : ''
+        }${tags}${
           n.dirty && cfg.token ? '<span class="unsynced">not synced</span>' : ''
         }</div>
       </button></li>`;
@@ -250,7 +272,7 @@ function fillEditor(note) {
   bodyEl.value = note.body;
   renderNoteTags(note);
   renderTakes();
-  $('#edited').textContent = 'Edited ' + formatDate(note.updated);
+  editorStatus();
   if (!$('#preview').hidden) renderPreview();
 }
 
@@ -258,7 +280,8 @@ function openEditor(id) {
   let note = id && byId(id);
   const isNew = !note;
   if (isNew) {
-    note = { id: newId(), title: '', body: '', tags: [], updated: Date.now(), pinned: false, sha: null, dirty: false, deleted: false };
+    const now = Date.now();
+    note = { id: newId(), title: '', body: '', tags: [], created: now, updated: now, pinned: false, sha: null, dirty: false, deleted: false };
     if (tagFilter) note.tags.push(tagFilter);
     notes.push(note);
   }
@@ -275,8 +298,31 @@ function touch(note) {
   note.updated = Date.now();
   note.dirty = true;
   persist();
-  $('#edited').textContent = 'Edited ' + formatDate(note.updated);
+  editorStatus();
 }
+
+/** "142 words · Edited 7:13 PM" — the word count shows when turned on in the menu. */
+function editorStatus() {
+  const note = byId(currentId);
+  if (!note) return;
+  const parts = [];
+  if (prefs.wordCount) {
+    const { selectionStart: a, selectionEnd: b } = bodyEl;
+    const total = countWords(bodyEl.value);
+    const sel = document.activeElement === bodyEl && b > a ? countWords(bodyEl.value.slice(a, b)) : 0;
+    parts.push(sel ? `${sel.toLocaleString()} of ${plural(total, 'word')}` : plural(total, 'word'));
+  }
+  parts.push('Edited ' + formatDate(note.updated));
+  $('#edited').textContent = parts.join(' · ');
+}
+bodyEl.addEventListener('input', () => prefs.wordCount && editorStatus());
+document.addEventListener('selectionchange', () => prefs.wordCount && document.activeElement === bodyEl && editorStatus());
+$('#edited').addEventListener('click', () => {
+  if (!prefs.wordCount) return;
+  const v = bodyEl.value;
+  const lines = v.split('\n').filter((l) => l.trim()).length;
+  toast(`${plural(countWords(v), 'word')} · ${plural(v.replace(/\s/g, '').length, 'character')} · ${plural(lines, 'line')}`);
+});
 
 function flushEditor() {
   clearTimeout(saveTimer);
@@ -565,6 +611,8 @@ function openDrawer() {
   $('#menu-note').hidden = !inEditor;
   if (inEditor && note) $('[data-menu="pin"]').textContent = note.pinned ? 'Unpin note' : 'Pin note';
   $('#player-switch').classList.toggle('on', prefs.player);
+  $('#wc-switch').classList.toggle('on', prefs.wordCount);
+  $('#sort-value').textContent = prefs.sort === 'created' ? 'Date created' : 'Last edited';
   $('[data-menu="record"]').textContent = rec ? 'Stop recording' : inEditor ? 'Record a take' : 'Record audio';
   $('#scrim').hidden = false;
   $('#drawer').hidden = false;
@@ -602,6 +650,22 @@ const MENU = {
     if (!prefs.player) setPlayer(true);
     popLayer();
     toggleRecording();
+  },
+  sort: () => {
+    prefs.sort = prefs.sort === 'created' ? 'updated' : 'created';
+    savePrefs();
+    popLayer();
+    render();
+    if (!$('#page').hidden && !$('#pg-catalog').hidden) renderCatalog();
+    toast(prefs.sort === 'created' ? 'Sorted by date created' : 'Sorted by last edited');
+  },
+  wordcount: () => {
+    prefs.wordCount = !prefs.wordCount;
+    savePrefs();
+    popLayer();
+    render();
+    editorStatus();
+    toast(prefs.wordCount ? 'Word count on' : 'Word count off');
   },
   player: () => {
     setPlayer(!prefs.player);
@@ -680,8 +744,8 @@ function renderCatalog() {
     });
   } else if (prefs.catSort === 'recent') {
     list
-      .sort((a, b) => b.updated - a.updated)
-      .forEach((n) => add(new Date(n.updated).toLocaleDateString([], { month: 'long', year: 'numeric' }), n));
+      .sort((a, b) => sortDate(b) - sortDate(a))
+      .forEach((n) => add(new Date(sortDate(n)).toLocaleDateString([], { month: 'long', year: 'numeric' }), n));
   } else {
     const tagged = new Map();
     const untagged = [];
@@ -701,7 +765,7 @@ function renderCatalog() {
             ns
               .map(
                 (n) =>
-                  `<button type="button" data-id="${esc(n.id)}"><span class="c-title">${esc(n.title || 'Untitled')}</span><span class="c-date">${formatDate(n.updated)}</span></button>`
+                  `<button type="button" data-id="${esc(n.id)}"><span class="c-title">${esc(n.title || 'Untitled')}</span><span class="c-date">${formatDate(sortDate(n))}</span></button>`
               )
               .join('')
         )
@@ -1359,6 +1423,7 @@ function serialize(note) {
     '---\n' +
     `title: ${JSON.stringify(note.title)}\n` +
     `tags: ${JSON.stringify(note.tags || [])}\n` +
+    `created: ${new Date(note.created || note.updated).toISOString()}\n` +
     `updated: ${new Date(note.updated).toISOString()}\n` +
     `pinned: ${!!note.pinned}\n` +
     '---\n\n' +
@@ -1369,9 +1434,12 @@ function serialize(note) {
 
 function parse(text, id) {
   text = text.replace(/\r\n/g, '\n');
-  const out = { title: id, body: text.replace(/\n$/, ''), tags: [], updated: Date.now(), pinned: false };
+  const out = { title: id, body: text.replace(/\n$/, ''), tags: [], created: 0, updated: Date.now(), pinned: false };
   const m = /^---\n([\s\S]*?)\n---\n\n?/.exec(text);
-  if (!m) return out; // a plain Markdown file added by hand
+  if (!m) {
+    out.created = createdFallback(id, out.updated);
+    return out; // a plain Markdown file added by hand
+  }
   out.body = text.slice(m[0].length).replace(/\n$/, '');
   for (const line of m[1].split('\n')) {
     const i = line.indexOf(':');
@@ -1391,13 +1459,14 @@ function parse(text, id) {
       } catch {
         out.tags = val.replace(/^\[|\]$/g, '').split(',').map(cleanTag).filter(Boolean);
       }
-    } else if (key === 'updated') {
+    } else if (key === 'updated' || key === 'created') {
       const t = Date.parse(val);
-      if (!Number.isNaN(t)) out.updated = t;
+      if (!Number.isNaN(t)) out[key] = t;
     } else if (key === 'pinned') {
       out.pinned = val === 'true';
     }
   }
+  if (!out.created) out.created = createdFallback(id, out.updated);
   return out;
 }
 
@@ -1564,7 +1633,7 @@ async function runSync() {
         // The text was edited on both sides: keep this device's text as a copy.
         notes.push({
           id: newId(), title: (local.title || 'Untitled') + ' (conflict copy)', body: local.body, tags: local.tags.slice(),
-          updated: local.updated, pinned: local.pinned, sha: null, dirty: true, deleted: false,
+          created: Date.now(), updated: local.updated, pinned: local.pinned, sha: null, dirty: true, deleted: false,
         });
         Object.assign(local, data, { dirty: false, deleted: false });
         markSynced(local, sha, remoteFields);

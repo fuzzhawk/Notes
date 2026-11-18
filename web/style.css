@@ -265,6 +265,8 @@ body.no-toolbar .fmt-bar, .editor.previewing .fmt-bar { display: none; }
 }
 .menu-group button:active { background: var(--surface-2); }
 .menu-group .danger { color: var(--danger); }
+.menu-value { color: var(--muted); font-size: 13px; }
+#edited { cursor: default; }
 .switch { position: relative; width: 32px; height: 18px; border-radius: 9px; background: #333; transition: background 0.15s; }
 .switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #999; transition: transform 0.15s; }
 .switch.on { background: var(--accent); }

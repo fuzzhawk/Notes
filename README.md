@@ -24,6 +24,10 @@ Everything lives in the **☰ menu**:
 - **Rhyming dictionary** — works offline (about 43,000 common English words), with perfect rhymes grouped
   by syllable count and near rhymes. Opened from a note it looks up the word at the cursor, and tapping a
   rhyme inserts it. Words the offline list doesn't know are looked up online at Datamuse.
+- **Sort by** — tap to switch the notes list between *last edited* and *date created* (pinned notes stay on
+  top). The Catalog's *Date* view follows the same choice.
+- **Word count** — turn it on to see the count at the top of an open note (select text to count just that
+  part; tap the count for characters and lines) and on each note in the list.
 - **Text format** — font, size, line spacing, and the formatting toolbar on/off. The toolbar adds Markdown
   (bold, italic, strikethrough, headings, lists, checklists, quotes). The eye button in a note shows it
   formatted, and checklist boxes can be ticked there.
@@ -40,8 +44,8 @@ Everything lives in the **☰ menu**:
 
 ## GitHub sync
 
-Notes are saved as Markdown files in `notes/`, one file per note, with the title, tags, pin and date at the
-top. To turn sync on:
+Notes are saved as Markdown files in `notes/`, one file per note, with the title, tags, pin and dates
+(created and last edited) at the top. To turn sync on:
 
 1. Create a [fine-grained personal access token](https://github.com/settings/personal-access-tokens/new)
    with access to **only this repository** and the permission **Contents: Read and write**.

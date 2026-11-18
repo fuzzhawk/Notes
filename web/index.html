@@ -79,7 +79,7 @@
         <input id="cat-filter" class="field" type="search" placeholder="Filter titles" autocomplete="off" aria-label="Filter titles">
         <div class="seg" role="group" aria-label="Sort">
           <button type="button" data-sort="az" aria-pressed="true">A–Z</button>
-          <button type="button" data-sort="recent" aria-pressed="false">Recent</button>
+          <button type="button" data-sort="recent" aria-pressed="false">Date</button>
           <button type="button" data-sort="tag" aria-pressed="false">Tag</button>
         </div>
       </div>
@@ -186,6 +186,8 @@
     <button type="button" data-menu="tags">Tags</button>
     <button type="button" data-menu="rhymes">Rhyming dictionary</button>
     <button type="button" data-menu="format">Text format</button>
+    <button type="button" data-menu="sort" class="toggle"><span>Sort by</span><span id="sort-value" class="menu-value"></span></button>
+    <button type="button" data-menu="wordcount" class="toggle"><span>Word count</span><span id="wc-switch" class="switch" aria-hidden="true"></span></button>
   </div>
   <div class="menu-group">
     <button type="button" data-menu="record">Record audio</button>
