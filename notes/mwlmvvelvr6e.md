@@ -2,7 +2,7 @@
 title: ""
 tags: []
 created: 2026-11-18T04:41:13.149Z
-updated: 2026-11-18T04:44:10.831Z
+updated: 2026-11-18T04:44:18.893Z
 pinned: false
 ---
 
@@ -13,4 +13,4 @@ Colin Wilson
 Ursula k leguin 
 Octavia butler
 Jean-Paul Sartre
-Wilhelm 
+Wilhelm riech 
