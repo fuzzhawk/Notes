@@ -1,7 +1,7 @@
 // Offline support: serve the app shell from the network when possible,
 // falling back to the last cached copy. GitHub API calls are never cached.
-const CACHE = 'notes-shell-v2';
-const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'manifest.webmanifest', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'rhymes.txt'];
+const CACHE = 'notes-shell-v3';
+const SHELL = ['./', 'index.html', 'style.css', 'app.js', 'markov.js', 'manifest.webmanifest', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'rhymes.txt'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

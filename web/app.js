@@ -57,13 +57,14 @@ function formatDate(ms) {
 let notes = load(LS_NOTES, []).map((n) => ({ tags: [], ...n, created: n.created || createdFallback(n.id, n.updated) }));
 const cfg = Object.assign({ owner: 'fuzzhawk', repo: 'Notes', branch: 'main', token: '' }, load(LS_CFG, {}));
 const prefs = Object.assign(
-  { font: 'sans', size: 'm', spacing: 'normal', toolbar: 'on', player: false, loop: false, track: null, catSort: 'az', sort: 'updated', wordCount: false },
+  { font: 'sans', size: 'm', spacing: 'normal', toolbar: 'on', player: false, loop: false, track: null, catSort: 'az', sort: 'updated', wordCount: false, gen: {} },
   load(LS_PREFS, {})
 );
 
 function persist() {
   if (!save(LS_NOTES, notes)) toast('Storage is full — could not save on this device');
 }
+prefs.gen = { length: 120, order: '2', lines: 'keep', choice: 'weighted', tag: '', ...prefs.gen };
 const savePrefs = () => save(LS_PREFS, prefs);
 const byId = (id) => notes.find((n) => n.id === id);
 const liveNotes = () => notes.filter((n) => !n.deleted);
@@ -640,6 +641,7 @@ const MENU = {
       setupRhymes(wordAtCursor(), true);
     } else unwind(null, () => openRhymes('', false));
   },
+  generator: () => unwind(null, () => openPage('generator')),
   format: () => {
     if (currentId !== null) {
       replaceTop('format', closePage);
@@ -702,7 +704,7 @@ $('#drawer').addEventListener('click', (e) => {
 /* ================================================================== *
  * Pages: catalog, tags, rhymes, text format
  * ================================================================== */
-const PAGE_TITLES = { catalog: 'Catalog', tags: 'Tags', rhymes: 'Rhyming dictionary', format: 'Text format' };
+const PAGE_TITLES = { catalog: 'Catalog', tags: 'Tags', rhymes: 'Rhyming dictionary', generator: 'Generator', format: 'Text format' };
 
 function showPage(name, over) {
   $$('.pg').forEach((p) => (p.hidden = p.id !== 'pg-' + name));
@@ -714,6 +716,7 @@ function showPage(name, over) {
   if (name === 'catalog') renderCatalog();
   if (name === 'tags') renderTags();
   if (name === 'format') renderFormatOptions();
+  if (name === 'generator') renderGenerator();
 }
 function openPage(name) {
   showPage(name, false);
@@ -1042,6 +1045,103 @@ function openRhymes(word, fromEditor) {
   pushLayer('rhymes', closePage);
   setupRhymes(word, fromEditor);
 }
+
+/* ---------- Generator (Markov chain over all notes; logic in markov.js) ---------- */
+let genModel = null;
+let genModelKey = '';
+let genText = '';
+
+function genModelNow() {
+  const g = prefs.gen;
+  const source = liveNotes().filter((n) => !g.tag || n.tags.includes(g.tag));
+  // Rebuild only when the options or the notes have changed.
+  const key = [g.order, g.lines, g.tag, source.length, source.reduce((t, n) => t + n.updated, 0)].join('|');
+  if (key !== genModelKey) {
+    genModel = Markov.build(source.map((n) => n.body), { order: Number(g.order), keepLines: g.lines === 'keep' });
+    genModelKey = key;
+  }
+  return genModel;
+}
+
+function renderGenerator() {
+  const g = prefs.gen;
+  const tags = allTags();
+  if (g.tag && !tags.some(([t]) => t === g.tag)) g.tag = '';
+  $('#gen-source').innerHTML =
+    `<option value="">All notes</option>` + tags.map(([t, c]) => `<option value="${esc(t)}">#${esc(t)} (${c})</option>`).join('');
+  $('#gen-source').value = g.tag;
+  $('#gen-length').value = g.length;
+  $('#gen-length-val').textContent = `${g.length} words`;
+  $$('#pg-generator .seg').forEach((seg) =>
+    seg.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(String(g[seg.dataset.gen]) === b.dataset.v)))
+  );
+  const m = genModelNow();
+  $('#gen-info').textContent = `Learning from ${plural(m.notes, 'note')} · ${plural(m.words, 'word')}`;
+  if (!genText) runGenerator();
+}
+
+function runGenerator() {
+  const g = prefs.gen;
+  const r = Markov.generate(genModelNow(), {
+    words: Number(g.length),
+    weighted: g.choice === 'weighted',
+    seed: $('#gen-seed').value.trim(),
+  });
+  if (r.error) return toast(r.error);
+  genText = r.text;
+  $('#gen-out').textContent = genText;
+}
+
+function setGen(key, value) {
+  prefs.gen[key] = value;
+  savePrefs();
+  renderGenerator();
+}
+$('#pg-generator').addEventListener('click', (e) => {
+  const b = e.target.closest('.seg button');
+  if (!b) return;
+  setGen(b.closest('.seg').dataset.gen, b.dataset.v);
+  runGenerator();
+});
+$('#gen-source').addEventListener('change', (e) => {
+  setGen('tag', e.target.value);
+  runGenerator();
+});
+$('#gen-length').addEventListener('input', (e) => ($('#gen-length-val').textContent = `${e.target.value} words`));
+$('#gen-length').addEventListener('change', (e) => {
+  setGen('length', Number(e.target.value));
+  runGenerator();
+});
+$('#gen-seed').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    $('#gen-seed').blur();
+    runGenerator();
+  }
+});
+$('#gen-go').addEventListener('click', runGenerator);
+$('#gen-copy').addEventListener('click', async () => {
+  if (!genText) return;
+  try {
+    await navigator.clipboard.writeText(genText);
+    toast('Copied');
+  } catch {
+    toast('Could not copy');
+  }
+});
+$('#gen-save').addEventListener('click', () => {
+  if (!genText) return;
+  const now = Date.now();
+  const first = genText.split(/\s+/).slice(0, 5).join(' ').replace(/[.,;:!?]+$/, '');
+  const note = {
+    id: newId(), title: first, body: genText, tags: ['generated'], created: now, updated: now,
+    pinned: false, sha: null, dirty: true, deleted: false,
+  };
+  notes.push(note);
+  persist();
+  render();
+  openEditor(note.id);
+  toast('Saved as a new note, tagged #generated');
+});
 
 /* ---------- Text format ---------- */
 const FONTS = {

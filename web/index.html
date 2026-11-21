@@ -99,6 +99,50 @@
       <div id="rh-results" class="rh"></div>
     </div>
 
+    <div id="pg-generator" class="pg" hidden>
+      <div class="opt">
+        <span>Source</span>
+        <select id="gen-source" class="select" aria-label="Source notes"></select>
+      </div>
+      <div class="opt">
+        <span>Length</span>
+        <div class="range"><input id="gen-length" type="range" min="10" max="400" step="10" aria-label="Length in words"><span id="gen-length-val"></span></div>
+      </div>
+      <div class="opt">
+        <span>Coherence</span>
+        <div class="seg" data-gen="order">
+          <button type="button" data-v="1">Wild</button>
+          <button type="button" data-v="2">Balanced</button>
+          <button type="button" data-v="3">Close</button>
+        </div>
+      </div>
+      <div class="opt">
+        <span>Line breaks</span>
+        <div class="seg" data-gen="lines">
+          <button type="button" data-v="keep">Keep</button>
+          <button type="button" data-v="prose">Prose</button>
+        </div>
+      </div>
+      <div class="opt">
+        <span>Word choice</span>
+        <div class="seg" data-gen="choice">
+          <button type="button" data-v="weighted">Frequent</button>
+          <button type="button" data-v="even">Even</button>
+        </div>
+      </div>
+      <div class="opt">
+        <span>Start with</span>
+        <input id="gen-seed" class="field sm" type="search" placeholder="any word" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" aria-label="Start with word">
+      </div>
+      <p id="gen-info" class="hint pad"></p>
+      <div class="gen-actions">
+        <button id="gen-go" type="button" class="btn">Generate</button>
+        <button id="gen-copy" type="button" class="btn ghost">Copy</button>
+        <button id="gen-save" type="button" class="btn ghost">Save as note</button>
+      </div>
+      <div id="gen-out" class="gen-out body-text"></div>
+    </div>
+
     <div id="pg-format" class="pg" hidden>
       <div class="opt">
         <span>Font</span>
@@ -185,6 +229,7 @@
     <button type="button" data-menu="catalog">Catalog</button>
     <button type="button" data-menu="tags">Tags</button>
     <button type="button" data-menu="rhymes">Rhyming dictionary</button>
+    <button type="button" data-menu="generator">Generator</button>
     <button type="button" data-menu="format">Text format</button>
     <button type="button" data-menu="sort" class="toggle"><span>Sort by</span><span id="sort-value" class="menu-value"></span></button>
     <button type="button" data-menu="wordcount" class="toggle"><span>Word count</span><span id="wc-switch" class="switch" aria-hidden="true"></span></button>
@@ -215,6 +260,7 @@
 
 <div id="toast" class="toast" role="status" hidden></div>
 
+<script src="markov.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

@@ -28,6 +28,11 @@ Everything lives in the **☰ menu**:
   top). The Catalog's *Date* view follows the same choice.
 - **Word count** — turn it on to see the count at the top of an open note (select text to count just that
   part; tap the count for characters and lines) and on each note in the list.
+- **Generator** — writes a new piece with a Markov chain learned from your notes (all of them, or only
+  those with one tag). Options: length in words, coherence (*Wild* / *Balanced* / *Close*: how many
+  previous words decide the next one; *Close* stays nearest your own phrasing), line breaks kept or
+  prose, word choice weighted by how often you used each phrase or even, and an optional starting word.
+  *Save as note* keeps a result as a new note tagged `#generated`.
 - **Text format** — font, size, line spacing, and the formatting toolbar on/off. The toolbar adds Markdown
   (bold, italic, strikethrough, headings, lists, checklists, quotes). The eye button in a note shows it
   formatted, and checklist boxes can be ticked there.
@@ -58,6 +63,7 @@ on the phone and elsewhere, both versions are kept (the phone's one becomes a "c
 ## Project layout
 
 - `web/` — the app (HTML/CSS/JS). It also runs in a browser: serve the folder and open `index.html`.
+- `web/markov.js` — the generator's Markov chain (also runs in Node: `require('./web/markov.js')`).
 - `web/rhymes.txt` — the rhyme data, built by `npm install && npm run build:rhymes` from the
   [CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict) and SUBTLEX-US word frequencies.
 - `android/` — a small Android app that shows `web/` in a full-screen WebView.
