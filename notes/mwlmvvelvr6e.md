@@ -2,7 +2,7 @@
 title: ""
 tags: []
 created: 2026-11-18T04:41:13.149Z
-updated: 2026-11-18T04:46:14.133Z
+updated: 2026-11-21T07:14:53.095Z
 pinned: false
 ---
 
@@ -19,3 +19,5 @@ J r r Tolkien
 Friedrich Nietzsche
 Hermann Hesse 
 Phillip k dick
+Margaret Atwood
+
