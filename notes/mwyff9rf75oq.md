@@ -2,7 +2,7 @@
 title: "Fmty notes"
 tags: []
 created: 2026-11-27T03:33:21.579Z
-updated: 2026-11-27T05:05:34.699Z
+updated: 2026-11-27T05:23:37.896Z
 pinned: false
 ---
 
