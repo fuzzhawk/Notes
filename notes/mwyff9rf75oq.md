@@ -2,13 +2,13 @@
 title: "Fmty notes"
 tags: []
 created: 2026-11-27T03:33:21.579Z
-updated: 2026-11-27T05:01:13.300Z
+updated: 2026-11-27T05:05:34.699Z
 pinned: false
 ---
 
 Nora intro music sooner?
 
-Transition between songs for pizza beatdown. Love note comes a bit later
+Transition between songs for pizza beatdown. Love note could come a bit later
 
 Dick lecture - digenic music ?
 
