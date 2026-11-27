@@ -2,7 +2,7 @@
 title: "Fmty notes"
 tags: []
 created: 2026-11-27T03:33:21.579Z
-updated: 2026-11-27T04:28:33.035Z
+updated: 2026-11-27T04:49:13.833Z
 pinned: false
 ---
 
@@ -19,6 +19,8 @@ Damn - music here?
 After Ryan- ext post office music here?
 
 Little getaways - music?
+
+Hospital wcene + smoking scene - good!
 
 
 
